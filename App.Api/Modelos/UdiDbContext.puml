@@ -1,0 +1,11 @@
+@startuml
+class UdiDbContext {
+    + UdiDbContext(options:DbContextOptions<UdiDbContext>)
+    + Escuelas : DbSet<Escuela> <<get>> <<set>>
+    + Profesores : DbSet<Profesor> <<get>> <<set>>
+    + Cursos : DbSet<Curso> <<get>> <<set>>
+    + Estudiantes : DbSet<Estudiante> <<get>> <<set>>
+    # <<override>> OnModelCreating(modelBuilder:ModelBuilder) : void
+}
+DbContext <|-- UdiDbContext
+@enduml

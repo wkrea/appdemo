@@ -1,0 +1,9 @@
+@startuml
+class Startup {
+    + Startup(configuration:IConfiguration)
+    + Configuration : IConfiguration <<get>>
+    + ConfigureServices(services:IServiceCollection) : void
+    + Configure(app:IApplicationBuilder, env:IWebHostEnvironment) : void
+    - <<async>> JsonResponseWriter(context:HttpContext, report:HealthReport) : Task
+}
+@enduml
