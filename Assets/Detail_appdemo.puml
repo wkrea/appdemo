@@ -1,0 +1,89 @@
+@startuml
+
+scale 0.8
+
+skinparam interface {
+  backgroundColor RosyBrown
+  borderColor orange
+}
+
+skinparam component {
+  FontSize 13
+  BackgroundColor<<Apache>> Red
+  BorderColor<<Apache>> #FF6655
+  FontName Courier
+  BorderColor black
+  BackgroundColor gold
+  ArrowFontName Impact
+  ArrowColor #FF6655
+  ArrowFontColor #777777
+}
+
+node "FrontEnd" {
+  ' [app] ..> () HTTPClient : use
+  [app] ..> () HTTPClient : use
+}
+
+cloud {
+  [HTTP/HTTPS]  --(0- HTTPClient : implements
+}
+
+node "App.Api" {
+  [Controllers]
+  Contexto ..> [Startup] : use
+  Repositorios ..> [Startup] : use
+  package "Controllers"{
+    [PostItemControllers] ..> [HTTP/HTTPS] : use
+    [PostItemControllers] ..> [IPostItemServicio] : use
+    [UserControllers] ..> [HTTP/HTTPS] : use
+    [UserControllers] ..> [IUsuariosServicio] : use
+    ' [IUsuariosServicio] ..> () [Startup] : use
+    ' [IPostItemServicio] ..> () [Startup] : use
+  }
+}
+
+node "App.Core" {
+   package "Interfaces"{
+    () IComentarioRepositorio
+    () IPostItemRepositorio
+    () IUsuarioRepositorio
+  }
+  package "Servicios"{
+    ' [IComentarioServicio]
+    [IPostItemServicio]
+    [IUsuariosServicio]
+    ' [ComentarioServicio] --(0- IComentarioServicio : implements
+    [PostItemServicio] --(0- IPostItemServicio : implements
+    [UsuariosServicio] --(0- IUsuariosServicio : implements
+
+    ComentarioServicio ..> () IComentarioRepositorio : use
+    PostItemServicio ..> () IPostItemRepositorio : use
+    PostItemServicio ..> () IComentarioRepositorio : use
+    UsuariosServicio ..> () IUsuarioRepositorio : use
+  }
+}
+
+node "App.Infra" {
+  package "Contexto"{
+    [AppDBSeedContext] ..> [AppDBContext] : extends
+    [AppDBContext] ..> () SqlServer : use
+  }
+  package "Repositorios"{
+    [ComentarioRepositorio] --(0- IComentarioRepositorio : implements
+    [PostItemRepositorio] --(0- IPostItemRepositorio : implements
+    [UsuarioRepositorio] --(0- IUsuarioRepositorio  : implements
+
+    [ComentarioRepositorio] ..> () AppDBContext : use
+    [PostItemRepositorio] ..> () AppDBContext : use
+    [UsuarioRepositorio] ..> () AppDBContext : use
+  }
+}
+
+database "SqlServer" {
+  entity PostItem
+  entity TextoItem
+  entity Usuario
+  entity Comentario
+}
+
+@enduml
