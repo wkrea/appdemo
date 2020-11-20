@@ -2,7 +2,7 @@
   name: .NET Core
   on:
     pull_request:
-      branches: [ main, CICD, wtests ]
+      # branches: [ main, CICD, wtests ]
   
   jobs:
     build:
