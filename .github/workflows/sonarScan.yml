@@ -20,7 +20,10 @@
         - "main"
 
     pull_request:
-      branches: [ main, CICD ]
+      branches: 
+        - main
+        - CICD
+        - wtests
 
   ###############
   # Set the Job #
