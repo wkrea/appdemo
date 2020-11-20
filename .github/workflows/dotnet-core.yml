@@ -1,0 +1,48 @@
+---
+  name: .NET Core
+  on:
+    pull_request:
+      branches: 
+        - main
+        - CICD
+        - wtests
+        - B_warevalo
+        - B_acelas
+        - B_cmalaver
+        - B_dmartinez
+        - B_gcastro
+        - B_jrangel
+        - B_jrobles
+        - B_jvalencia
+        - B_jvillamizar
+        - B_kvega
+        - B_macosta
+        - A_acelis
+        - A_dsuarez
+        - A_jcaballero
+        
+  jobs:
+    build:
+      runs-on: windows-latest
+      env:
+        config: 'Release'
+      defaults:
+        run:
+          working-directory: BackEnd
+  
+      steps:
+      - uses: actions/checkout@v2
+      - name: Instalar .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.401
+      - name: Restaurar dependencias
+        run: dotnet restore ./App.Api/
+      - name: Construir Aplicación
+        run: dotnet build --configuration Release --no-restore ./App.Api/App.Api.csproj
+      - name: Generate coverage report
+        run: |
+          cd ./App.Test/
+          dotnet restore
+          dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov
+      
