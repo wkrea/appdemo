@@ -20,7 +20,7 @@ on:
   #     - main
 
   pull_request:
-    #branches: [ main, CICD, wtests ]
+    branches: [ main, CICD, wtests ]
 
 ###############
 # Set the Job #
