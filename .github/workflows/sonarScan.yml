@@ -68,7 +68,7 @@
 
         - name: Generate coverage report
           run: |
-            cd ./BackEnd/App.Test/
+            cd ./BackEnd/App.Tests/
             dotnet restore
             dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov
 
