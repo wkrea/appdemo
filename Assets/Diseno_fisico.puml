@@ -1,0 +1,171 @@
+@startuml
+
+scale 0.8
+
+skinparam interface {
+  backgroundColor RosyBrown
+  borderColor orange
+}
+
+skinparam component {
+  FontSize 13
+  BackgroundColor<<Apache>> Red
+  BorderColor<<Apache>> #FF6655
+  FontName Courier
+  BorderColor black
+  BackgroundColor gold
+  ArrowFontName Impact
+  ArrowColor #FF6655
+  ArrowFontColor #777777
+}
+
+package App.Infra {
+    namespace App.Infra.Repositorio #DDDDDD{
+            interface IUsuarioRepositorio {
+                GuardarContext() : Task
+                Listar() : Task<IEnumerable<Usuario>>
+                Crear(usuario:Usuario) : Task
+                Eliminar(id:int) : Task
+                Editar(usuario:Usuario) : Task
+                BuscarXId(Id:int) : Task<Usuario>
+            }
+            class UsuarioRepositorio {
+                - <<readonly>> _context : AppDBContext
+                + UsuarioRepositorio(AppDBContext:AppDBContext)
+                + <<async>> GuardarContext() : Task
+                + <<async>> Listar() : Task<IEnumerable<Usuario>>
+                + <<async>> BuscarXId(id:int) : Task<Usuario>
+                + <<async>> Crear(usuario:Usuario) : Task
+                + <<async>> Editar(usuario:Usuario) : Task
+                + <<async>> Eliminar(id:int) : Task
+            }
+       }
+
+App.Infra.Repositorio.IUsuarioRepositorio <|-left- App.Infra.Repositorio.UsuarioRepositorio
+}
+
+package App.Core{
+    namespace App.Core.Servicios #DDDDDD{
+         interface IUsuarioServicio {
+            GetUsuarios() : Task<IEnumerable<Usuario>>
+            GetUsuario(id:int) : Task<Usuario>
+            CrearUsuario(usuario:Usuario) : Task<IEnumerable<ErrorBase>>
+            EditarUsuario(usuario:Usuario) : Task<IEnumerable<ErrorBase>>
+            EliminarUsuario(id:int) : Task
+        }
+        class UsuariosServicio {
+            - <<readonly>> _userRepo : IUsuarioRepositorio
+            + UsuariosServicio(usuarioRepositorio:IUsuarioRepositorio)
+            + <<async>> GetUsuarios() : Task<IEnumerable<Usuario>>
+            + GetUsuario(id:int) : Task<Usuario>
+            + <<async>> CrearUsuario(usuario:Usuario) : Task<IEnumerable<ErrorBase>>
+            + <<async>> EditarUsuario(usuario:Usuario) : Task<IEnumerable<ErrorBase>>
+            + <<async>> EliminarUsuario(id:int) : Task
+        }
+    }
+   App.Core.Servicios.IUsuarioServicio <|-right App.Core.Servicios.UsuariosServicio
+
+    App.Core.Servicios.UsuariosServicio --down0)-- App.Infra.Repositorio.IUsuarioRepositorio
+}
+
+package App.Api{
+    namespace App.Api.Controllers #DDDDDD{
+       class UsuarioController {
+         - <<readonly>> usersService : IUsuarioServicio
+         + UsuarioController(usersService:IUsuarioServicio)
+         + <<async>> GetUsers() : Task<IActionResult>
+         + <<async>> GetUser(id:int) : Task<IActionResult>
+      }
+      ControllerBase <|-left- UsuarioController
+    }
+    App.Api.Controllers.UsuarioController --down0)-- App.Core.Servicios.IUsuarioServicio
+}
+
+package "FrontEnd" {
+  app -left-|> HTTpClient
+  HTTpClient -right-o App.Api.Controllers.ControllerBase
+}
+
+' package command {
+'     class AbstractCommand
+    
+' }
+
+' package net {
+'     class AbstractConsumer
+'     interface Inject<E>
+' }
+
+' package plug {
+'     interface Pluggable
+' }
+
+
+
+' App.Infra.Repositorio.Bootstrap --|> AbstractConsumer
+' Bootstrap ..|> Inject
+' Bootstrap ..|> Pluggable
+
+
+' HaltCommand --|> AbstractCommand
+' HaltCommand ..> Bootstrap
+
+
+' node "FrontEnd" {
+'   ' [app] ..> () HTTPClient : use
+'   [app] ..> () HTTPClient : use
+' }
+
+' cloud {
+'   [HTTP/HTTPS]  --(0- HTTPClient : implements
+' }
+
+' node "App.Infra" {
+'   package "Contexto"{
+'     [AppDBSeedContext] ..> [AppDBContext] : extends
+'     [AppDBContext] ..> () EFCore : use
+'   }
+'   package "Repositorios"{
+'     [PostItemRepositorio] --(0- () IPostItemRepositorio : implements
+'     [UsuarioRepositorio] --(0- () IUsuarioRepositorio  : implements
+
+'     [PostItemRepositorio] ..> () AppDBContext : use
+'     [UsuarioRepositorio] ..> () AppDBContext : use
+'    }
+' }
+
+' package App.Infra{
+'       namespace App.Infra.Contexto #DDDDDD{
+'          !include ./BackEnd/App.Infra/Repositorios/UsuarioRepositorio.puml
+'          '  !include ./Repositorios/ComentarioRepositorio.puml
+'          '  !include ./Repositorios/PostItemRepositorio.puml
+'    }
+' }
+
+' database "EFCore" {
+'   Database SqlServer
+' }
+
+' node "App.Core" {
+'    [Servicios]
+'    package "Servicios"{
+'       [PostItemServicio] --(0- () IPostItemServicio : implements
+'       [UsuariosServicio] --(0- () IUsuariosServicio : implements
+'    }
+'    [PostItemServicio] ..> () IPostItemRepositorio : use
+'    [UsuariosServicio] ..> () IUsuarioRepositorio : use
+' }
+
+' node "App.Api" {
+'   [Controllers]
+' '   Contexto ..> [Startup] : use
+' '   Repositorios ..> [Startup] : use
+'   package "Controllers"{
+'    [PostItemControllers] ..> [HTTP/HTTPS] : use
+'    [UserControllers] ..> [HTTP/HTTPS] : use
+'    [PostItemControllers] ..> () IPostItemServicio : use
+'    [UserControllers] ..> () IUsuariosServicio : use
+'   }
+' }
+
+@enduml

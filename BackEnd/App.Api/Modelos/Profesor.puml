@@ -1,0 +1,9 @@
+@startuml
+class Profesor {
+    + Id : int <<get>> <<set>>
+    + Nombre : string <<get>> <<set>>
+    + EscuelaId : int <<get>> <<set>>
+    + Escuela : Escuela <<get>> <<set>>
+    + Cursos : ICollection<Curso> <<get>> <<set>>
+}
+@enduml
