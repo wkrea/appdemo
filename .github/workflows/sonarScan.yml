@@ -55,7 +55,13 @@
 
         - name: Clone Test branche
           run: |
-            git clone -b Tests https://github.com/wkrea/appdemo.git && mv ./appdemo/* ./BackEnd/ && rm -rf appdemo
+            git clone -b Tests https://github.com/wkrea/appdemo.git && mv ./appdemo/* ./BackEnd/ && rm -rf ./appdemo
+
+        - name: Content list
+          run: |
+            #ls ./
+            ls ./BackEnd/
+            #ls .
 
         - name: dotnet restore App.Api
           run: dotnet restore ./BackEnd/App.Api/*.csproj
