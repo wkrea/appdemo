@@ -57,26 +57,14 @@
           run: |
             git clone -b Tests https://github.com/wkrea/appdemo.git && mv ./appdemo/* ./BackEnd/ && rm -rf ./appdemo
 
-        - name: Content list
-          run: |
-            #ls ./
-            ls ./BackEnd/
-            #ls .
-
         - name: dotnet restore App.Api
           run: dotnet restore ./BackEnd/App.Api/*.csproj
         - name: dotnet build App.Api
           run: dotnet build ./BackEnd/App.Api/*.csproj --no-restore
         - name: dotnet restore App.Tests
-          run: dotnet restore ./BackEnd/App.Test/*.csproj
+          run: dotnet restore ./BackEnd/App.Tests/*.csproj
         - name: dotnet build App.Tests
-          run: dotnet build ./BackEnd/App.Test/*.csproj
-
-        # - name: restore, build and test
-        #   run: |
-        #     dotnet restore ./BackEnd/App.Api/*.csproj
-        #     dotnet build ./BackEnd/App.Api/*.csproj
-        #     dotnet restore ./BackEnd/App.Tests/*.csproj
+          run: dotnet build ./BackEnd/App.Tests/*.csproj
 
         - name: Generate coverage report
           run: |
