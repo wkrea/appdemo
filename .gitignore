@@ -359,3 +359,19 @@ MigrationBackup/
 /infrastructure/terraform.exe
 /deploy/*_secret.yaml
 .vscode/
+db/mssqldata/.system/instance_id
+db/mssqldata/.system/profiles/Client/AppData/LocalLow/Microsoft/CryptnetUrlCache/Content/55C4822D0F35FE8F4F67713B4F628992
+db/mssqldata/.system/profiles/Client/AppData/LocalLow/Microsoft/CryptnetUrlCache/Content/C0B3CF8C6BDC62F967B9CDC912FC0A5B
+db/mssqldata/.system/profiles/Client/AppData/LocalLow/Microsoft/CryptnetUrlCache/Content/FD2497304CE38C465CF617A3AA4F2113
+db/mssqldata/.system/profiles/Client/AppData/LocalLow/Microsoft/CryptnetUrlCache/MetaData/55C4822D0F35FE8F4F67713B4F628992
+db/mssqldata/.system/profiles/Client/AppData/LocalLow/Microsoft/CryptnetUrlCache/MetaData/C0B3CF8C6BDC62F967B9CDC912FC0A5B
+db/mssqldata/.system/profiles/Client/AppData/LocalLow/Microsoft/CryptnetUrlCache/MetaData/FD2497304CE38C465CF617A3AA4F2113
+db/mssqldata/.system/profiles/Client/AppData/Roaming/Microsoft/SystemCertificates/My/AppContainerUserCertRead
+db/mssqldata/.system/programdata/Microsoft/NetFramework/BreadcrumbStore/Microsoft.Diagnostics.Tracing.EventSource, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+db/mssqldata/.system/programdata/Microsoft/NetFramework/BreadcrumbStore/Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.26.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+db/mssqldata/.system/system/lsa.hiv
+db/mssqldata/.system/system/security.hiv
+db/mssqldata/.system/system/system32/Microsoft/Protect/S-1-5-18/User/92403ac7-c156-41b3-8ede-463595894a31
+db/mssqldata/.system/system/system32/Microsoft/Protect/S-1-5-18/User/Preferred
+db/mssqldata/data/Entropy.bin
+db/mssqldata/secrets/machine-key

@@ -1,0 +1,9 @@
+@startuml
+class EstudianteDTO {
+    + Id : int <<get>> <<set>>
+    + Nombre : string <<get>> <<set>>
+    + CursoId : int <<get>> <<set>>
+    + ProfesorId : int <<get>> <<set>>
+    + EscuelaId : int <<get>> <<set>>
+}
+@enduml

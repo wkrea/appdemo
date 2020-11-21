@@ -1,0 +1,8 @@
+@startuml
+class EndpointsController {
+    - <<readonly>> _logger : ILogger<EndpointsController>
+    + EndpointsController(logger:ILogger<EndpointsController>)
+    + Get() : object
+}
+ControllerBase <|-- EndpointsController
+@enduml
