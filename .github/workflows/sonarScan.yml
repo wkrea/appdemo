@@ -55,26 +55,20 @@
 
         - name: Clone Test branche
           run: |
-            git clone -b Tests https://github.com/wkrea/appdemo.git && mv ./appdemo/* ./BackEnd/ && rm -rf appdemo
+            git clone -b Tests https://github.com/wkrea/appdemo.git && mv ./appdemo/* ./BackEnd/ && rm -rf ./appdemo
 
         - name: dotnet restore App.Api
-          run: dotnet restore ${{github.workspace}}/BackEnd/App.Api/*.csproj
+          run: dotnet restore ./BackEnd/App.Api/*.csproj
         - name: dotnet build App.Api
-          run: dotnet build ${{github.workspace}}/BackEnd/App.Api/*.csproj --no-restore
+          run: dotnet build ./BackEnd/App.Api/*.csproj --no-restore
         - name: dotnet restore App.Tests
-          run: dotnet restore ${{github.workspace}}/BackEnd/App.Test/*.csproj
+          run: dotnet restore ./BackEnd/App.Tests/*.csproj
         - name: dotnet build App.Tests
-          run: dotnet build ${{github.workspace}}/BackEnd/App.Test/*.csproj
-
-        # - name: restore, build and test
-        #   run: |
-        #     dotnet restore ./BackEnd/App.Api/*.csproj
-        #     dotnet build ./BackEnd/App.Api/*.csproj
-        #     dotnet restore ./BackEnd/App.Tests/*.csproj
+          run: dotnet build ./BackEnd/App.Tests/*.csproj
 
         - name: Generate coverage report
           run: |
-            cd ${{github.workspace}}/BackEnd/App.Test/
+            cd ./BackEnd/App.Tests/
             dotnet restore
             dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov
 
@@ -88,10 +82,10 @@
 
         # - name: scanner build
         #   run: |
-        #     dotnet build ${{github.workspace}}/BackEnd/*.sln
-        #   # dotnet build ${{github.workspace}}/BackEnd/App.Api/*.csproj
-        #   # dotnet build ${{github.workspace}}/BackEnd/App.Infra/*.csproj
-        #   # dotnet build ${{github.workspace}}/BackEnd/App.Core/*.csproj
+        #     dotnet build ./BackEnd/*.sln
+        #   # dotnet build ./BackEnd/App.Api/*.csproj
+        #   # dotnet build ./BackEnd/App.Infra/*.csproj
+        #   # dotnet build ./BackEnd/App.Core/*.csproj
 
         - name: setup Java 11
           uses: actions/setup-java@v1
@@ -102,8 +96,8 @@
 
         - name: scanner test
           run: |
-            dotnet test ${{github.workspace}}/BackEnd/*.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../lcov
-          # cd ${{github.workspace}}/BackEnd/App.Test/
+            dotnet test ./BackEnd/*.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../lcov
+          # cd ./BackEnd/App.Test/
           # dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../lcov
 
         - name: scanner end
@@ -114,8 +108,8 @@
         # - name: Content list
         #   run: |
         #     #ls ./
-        #     ls ${{github.workspace}}/BackEnd/App.Test
-        #     #ls ${{github.workspace}}
+        #     ls ./BackEnd/App.Test
+        #     #ls .
 
         # - name: SonarCloud Scan AppDemo
         #   uses: sonarsource/sonarcloud-github-action@master
@@ -124,7 +118,7 @@
         #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         #   with:
-        #     projectBaseDir: ${{github.workspace}} #/BackEnd/App.Test/
+        #     projectBaseDir: . #/BackEnd/App.Test/
         #     args: >
         #       -Dsonar.organization=wkrea
         #       -Dsonar.projectKey=wkrea_appdemo
