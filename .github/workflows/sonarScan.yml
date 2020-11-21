@@ -20,7 +20,6 @@
         - "main"
 
     pull_request:
-<<<<<<< HEAD
       branches: 
         - main
         - CICD
@@ -40,10 +39,6 @@
         - A_dsuarez
         - A_jcaballero
   
-=======
-      # branches: [ main, CICD, wtests ]
-
->>>>>>> 34bca45... comentando
   ###############
   # Set the Job #
   ###############
