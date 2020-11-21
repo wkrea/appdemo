@@ -2,8 +2,25 @@
   name: .NET Core
   on:
     pull_request:
-      # branches: [ main, CICD, wtests ]
-  
+      branches: 
+        - main
+        - CICD
+        - wtests
+        - B_warevalo
+        - B_acelas
+        - B_cmalaver
+        - B_dmartinez
+        - B_gcastro
+        - B_jrangel
+        - B_jrobles
+        - B_jvalencia
+        - B_jvillamizar
+        - B_kvega
+        - B_macosta
+        - A_acelis
+        - A_dsuarez
+        - A_jcaballero
+        
   jobs:
     build:
       runs-on: windows-latest
@@ -23,9 +40,9 @@
         run: dotnet restore ./App.Api/
       - name: Construir Aplicación
         run: dotnet build --configuration Release --no-restore ./App.Api/App.Api.csproj
-      - name: Generate coverage report
-        run: |
-          cd ./App.Test/
-          dotnet restore
-          dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov
+      # - name: Generate coverage report
+      #   run: |
+      #     cd ./App.Test/
+      #     dotnet restore
+      #     dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov
       
