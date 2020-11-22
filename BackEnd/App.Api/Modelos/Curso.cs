@@ -4,10 +4,10 @@ namespace App.Api.Modelos
 {
     public class Curso
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public int ProfesorId { get; set; }
-        public Profesor estudiantes { get; set; }
-        public ICollection<Estudiante> Profesor { get; set; }
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public int profesorId { get; set; }
+        public Profesor profesor { get; set; }
+        public ICollection<Estudiante> estudiantes { get; set; }
     }
 }
