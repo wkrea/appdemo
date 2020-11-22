@@ -1,14 +1,14 @@
 ﻿using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace App.Api.Controllers
 {
-    public class EstudianteExtensions
+    public class EstudianteExtensions : EstudiantesController
     {
+        public EstudianteExtensions(UdiDbContext udiDbContext) : base(udiDbContext)
+        {
+        }
+
         public static Estudiante ToModel(EstudianteDTO estudianteDTO, Curso curso)
         {
             return new Estudiante();
