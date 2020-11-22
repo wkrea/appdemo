@@ -11,7 +11,7 @@ namespace App.Api.Controllers
     {
         private readonly UdiDbContext _dbContext;
 
-        EstudiantesController(UdiDbContext dbContext)
+        public EstudiantesController(UdiDbContext dbContext)
         {
             _dbContext = dbContext;
         }
