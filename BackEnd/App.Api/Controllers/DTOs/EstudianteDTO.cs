@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace App.Api.Controllers.DTOs
+﻿namespace App.Api.Controllers.DTOs
 {
     public class EstudianteDTO
     {
