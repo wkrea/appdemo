@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 using System.Text.Json;
 using System.Threading.Tasks;
+=======
+﻿using App.Api.Modelos;
+using Microsoft.EntityFrameworkCore; 
+>>>>>>> 71be5db (Modificación en Startup)
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +18,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Api
 {
-    public class Startup
+  public class Startup
     {
         public Startup(IConfiguration configuration)
         {
