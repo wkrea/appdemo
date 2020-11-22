@@ -1,4 +1,5 @@
-﻿using App.Api.Modelos;
+﻿using App.Api.Controllers.DTOs;
+using App.Api.Modelos;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,11 @@ namespace App.Api.Controllers
         public EstudiantesController(UdiDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public Task<ActionResult<IEnumerator<EstudianteDTO>>> GetAll()
+        {
+            return null;
         }
     }
 }
