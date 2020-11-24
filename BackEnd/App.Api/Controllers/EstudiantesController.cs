@@ -85,7 +85,7 @@ namespace App.Api.Controllers
             var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==EstudianteDto.Id);
 
             if (Estudiante != null)
-                return NotFound("El identificador del estudiante ya existe");
+                return Conflict("El identificador del estudiante ya existe");
                 
             // convertir los datos de DTO a Model
             var nuevoEstudiante = new Estudiante{
@@ -161,6 +161,10 @@ namespace App.Api.Controllers
                 return BadRequest("Por favor ingrese un nombre"); 
             }
 
+            if( EstudianteDto.Id != id ) {
+                return BadRequest("Por favor ingrese un identificador"); 
+            }
+
             // verificar que el estudiante que quiere modificarse, exista
             // si no existe, retornar NotFound
             var EstudianteDtoId = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==EstudianteDto.Id);
@@ -170,11 +174,10 @@ namespace App.Api.Controllers
             
             // verificar que el curso id, que viene en el DTO para modificar matricula (actualizar)
             // exista en la base, de lo contrario manterner el mismo curso en el que esté matriculado
-            // Si no se encuentra que el estudiante este en un curso, retornar NotFound
             var Curso = await _dbContext.Cursos.FirstOrDefaultAsync(c=>c.Id==EstudianteDto.CursoId);
 
             if (Curso == null)
-                EstudianteDto.CursoId = Estudiante.CursoId;
+                return NotFound("El curso no es valido");    
 
             // Actualizar el estudiante, recuerden que existe un método Update en Extensions
             EstudianteDtoId.Id = EstudianteDto.Id;
