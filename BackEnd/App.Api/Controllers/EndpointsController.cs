@@ -4,10 +4,11 @@ using Microsoft.Extensions.Logging;
 namespace App.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("")]
     public class EndpointsController : ControllerBase
     {
-        public readonly ILogger<EndpointsController> _logger;
+        private const string Message = "El log está funcionando";
+        private readonly ILogger<EndpointsController> _logger;
 
         public EndpointsController(ILogger<EndpointsController> logger)
         {
@@ -15,9 +16,10 @@ namespace App.Api.Controllers
         }
 
         [HttpGet]
-        public object Get()
+        public string Get()
         {
-            return new object ();
+            _logger.LogInformation(message: Message);
+            return "Funcionando";
         }
     }
 }
