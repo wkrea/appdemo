@@ -9,11 +9,15 @@ namespace App.Api.Controllers
     {
         public readonly ILogger<EndpointsController> _logger;
 
-        EndpointsController(ILogger<EndpointsController> logger)
+        public EndpointsController(ILogger<EndpointsController> logger)
         {
             this._logger = logger;
         }
 
-
+        [HttpGet]
+        public object Get()
+        {
+            return new object ();
+        }
     }
 }
