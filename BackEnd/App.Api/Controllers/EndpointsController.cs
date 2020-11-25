@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 
 namespace App.Api.Controllers
 {
+    [ApiController]
+    [Route("")]
     public class EndpointsController : ControllerBase
     {
         public readonly ILogger<EndpointsController> _logger;
