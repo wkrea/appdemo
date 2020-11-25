@@ -3,9 +3,9 @@ using App.Api.Modelos;
 
 namespace App.Api.Controllers
 {
-    public class EstudianteExtensions : EstudiantesController
+    public class EstudianteExtensions
     {
-        public EstudianteExtensions(UdiDbContext udiDbContext) : base(udiDbContext)
+        public EstudianteExtensions(UdiDbContext udiDbContext)
         {
         }
 

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace App.Api.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class EstudiantesController : ControllerBase
     {
         private readonly UdiDbContext _dbContext;

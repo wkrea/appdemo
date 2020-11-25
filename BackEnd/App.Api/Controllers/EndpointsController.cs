@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 namespace App.Api.Controllers
 {
     [ApiController]
-    [Route("")]
+    [Route("[controller]")]
     public class EndpointsController : ControllerBase
     {
         public readonly ILogger<EndpointsController> _logger;
