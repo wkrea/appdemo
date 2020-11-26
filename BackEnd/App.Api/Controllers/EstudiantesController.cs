@@ -1,6 +1,7 @@
 ﻿using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +20,36 @@ namespace App.Api.Controllers
             _dbContext = dbContext;
         }
 
-        public Task<ActionResult<IEnumerator<EstudianteDTO>>> GetAll()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerator<EstudianteDTO>>> GetAll()
+        {
+            
+            return null;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Estudiante>> Get(int id)
+        {
+            return await _dbContext.estudiantes.FirstOrDefaultAsync(estudiante => estudiante.id == id);
+        }
+
+        [HttpPost]
+        public Task<ActionResult<EstudianteDTO>> Create(EstudianteDTO estudianteDTO)
         {
             return null;
         }
 
+        [HttpPut("{id}")]
+        public Task<IActionResult> Update(int id, EstudianteDTO estudianteDTO)
+        {
+            return null;
+        }
 
-        /*[HttpGet]
-        [HttpGet("id")]
-        [HttpPost]
-        [HttpPut("id")]
-        [HttpDelete("id")]*/
+        [HttpDelete("{id}")]
+        public Task<ActionResult<EstudianteDTO>> Delete(int id)
+        {
+            return null;
+        }
+
     }
 }
