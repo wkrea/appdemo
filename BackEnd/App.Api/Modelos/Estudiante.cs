@@ -1,4 +1,4 @@
-namespace App.api.Modelos
+namespace App.Api.Modelos
 {
     public class Estudiante
     {

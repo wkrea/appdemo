@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace App.api.Modelos
+namespace App.Api.Modelos
 {
     public class Curso
     {

@@ -1,10 +1,10 @@
-namespace App.api.Controllers.DTOs{
+namespace App.Api.Controllers.DTOs{
   
   public class EstudianteDto{
     public int Id { get; set; }
     public string Nombre { get; set; }
-    public string CursoId { get; set; }
-    public string ProfesorId { get; set; }
-    public string EscuelaId { get; set; }
+    public int CursoId { get; set; }
+    public int ProfesorId { get; set; }
+    public int EscuelaId { get; set; }
   }
 }
