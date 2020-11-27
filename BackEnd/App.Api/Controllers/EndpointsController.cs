@@ -1,14 +1,15 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace  App.Api.Controllers{
-    public class  EndpointsController{
-        readonly ILogger<EndpointsController> _Logger;
+    public class  EndpointsController : ControllerBase{
+        private readonly ILogger<EndpointsController> _Logger;
         
-        EndpointsController(ILogger<EndpointsController> logger){
+        public EndpointsController(ILogger<EndpointsController> logger){
             _Logger = logger;
         }
 
-        object Get(){
+        public object Get(){
             return _Logger;
         }
 
