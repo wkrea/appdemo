@@ -10,7 +10,7 @@ namespace App.Api.Modelos
         public int Id { get; set; }
         public string Nombre { get; set; }
         public int Cursoid {get; set;}
-        public Curso Curso { get; set; }
+        public Curso Curso { get; set; } // Relación one to many
 
     }
 }
