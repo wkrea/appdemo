@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace App.Api.Controllers
 {
@@ -12,7 +13,7 @@ namespace App.Api.Controllers
 
         public EndpointsController(ILogger<EndpointsController> logger)
         {
-            this._logger = logger;
+            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]

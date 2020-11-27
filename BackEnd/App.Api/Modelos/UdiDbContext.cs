@@ -16,6 +16,7 @@ namespace App.Api.Modelos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Model Builder
             base.OnModelCreating(modelBuilder);
 
             //Curso
