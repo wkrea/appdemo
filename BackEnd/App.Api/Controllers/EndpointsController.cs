@@ -12,10 +12,10 @@ namespace App.Api.Controllers
     [ApiController]
     public class EndpointsController : ControllerBase
     {
-        private readonly ILogger<EndpointsController> archivolog;
-        public EndpointsController(ILogger<EndpointsController> loginicualizar)
+        private readonly ILogger<EndpointsController> _logger;
+        public EndpointsController(ILogger<EndpointsController> logger)
         {
-            archivolog = loginicualizar;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         // GET: api/Endpoints
         [HttpGet]
@@ -23,9 +23,9 @@ namespace App.Api.Controllers
         {
             var objetoRespuesta = new
             {
-                Status = "Api 8A_jcaballero en linea"
+                Status = "Api A_jcaballero en linea"
             };
-            archivolog.LogInformation(objetoRespuesta.Status);  
+            _logger.LogInformation(objetoRespuesta.Status);  
             return objetoRespuesta;
         }
     }
