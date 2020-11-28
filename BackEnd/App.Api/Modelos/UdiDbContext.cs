@@ -10,9 +10,7 @@ namespace App.Api.Modelos
         public DbSet<Escuela> escuelas {get;set;}
 
         protected override void OnModelCreating(ModelBuilder builder){
-        
-        
-        );
+    
         }
     }
 }
