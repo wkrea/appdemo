@@ -16,18 +16,18 @@ namespace App.Api.Controllers
             context = estudianteRepo;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Estudiante>>> Get()
+        public async Task<ActionResult<List<Estudiante>>> GetAll()
         {
             return await context.obtenerEstudiantes();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Estudiante>> GetById(int id)
+        public async Task<ActionResult<Estudiante>> Get(int id)
         {
             return await context.obtenerEstudiante(id);
         }
         [HttpPost]
-        public async Task<ActionResult> Crear([FromBody] Estudiante estudiante)
+        public async Task<ActionResult> Create([FromBody] Estudiante estudiante)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace App.Api.Controllers
             }
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult> Editar(int id, [FromBody] Estudiante estEditado)
+        public async Task<ActionResult> Update(int id, [FromBody] Estudiante estEditado)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace App.Api.Controllers
             return Ok();
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {

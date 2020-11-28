@@ -28,7 +28,7 @@ namespace App.Api
         {
             services.AddControllers();
             services.AddDbContext<UdiDbContext>(opts =>
-             opts.UseInMemoryDatabase("UdiDbContext")
+                opts.UseInMemoryDatabase("UdiDbContext")
             );
             services.AddScoped<IEstudianteRepo, EstudianteRepo>();
         }
