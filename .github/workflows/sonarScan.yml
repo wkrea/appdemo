@@ -1,0 +1,132 @@
+---
+  ###########################
+  ###########################
+  ## Linter GitHub Actions ##
+  ###########################
+  ###########################
+  name: SonarCloud Scan
+  
+  #
+  # Documentation:
+  # https://help.github.com/en/articles/workflow-syntax-for-github-actions
+  #
+  
+  #############################
+  # Start the job on all push #
+  #############################
+  on:
+    push:
+      branches:
+        - "main"
+
+    pull_request:
+      branches: 
+        - main
+        - CICD
+        - wtests
+        - B_warevalo
+        - 8A_warevalo
+        - B_acelas
+        - B_cmalaver
+        - B_dmartinez
+        - B_dmoreno
+        - B_gcastro
+        - B_jrangel
+        - B_jrobles
+        - B_jvalencia
+        - B_jvillamizar
+        - B_kvega
+        - B_macosta
+        - A_acelis
+        - A_dsuarez
+        - A_jcaballero
+        - 8A_jcaballero
+        - A_requena
+  
+  ###############
+  # Set the Job #
+  ###############
+  jobs:
+    sonarCloudTrigger:
+      name: SonarCloud Trigger
+      runs-on: ubuntu-latest
+      steps:
+        - name: Clone Repository
+          uses: actions/checkout@v2
+
+        - name: install sonar-scanner
+          run: dotnet tool install --global dotnet-sonarscanner
+
+        - name: Clone Test branche
+          run: |
+            git clone -b Tests https://github.com/wkrea/appdemo.git && mv ./appdemo/* ./BackEnd/ && rm -rf ./appdemo
+
+        - name: dotnet restore App.Api
+          run: dotnet restore ./BackEnd/App.Api/*.csproj
+        - name: dotnet build App.Api
+          run: dotnet build ./BackEnd/App.Api/*.csproj --no-restore
+        - name: dotnet restore App.Tests
+          run: dotnet restore ./BackEnd/App.Tests/*.csproj
+        - name: dotnet build App.Tests
+          run: dotnet build ./BackEnd/App.Tests/*.csproj
+
+        - name: Generate coverage report
+          run: |
+            cd ./BackEnd/App.Tests/
+            dotnet restore
+            dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov
+
+        - name: scanner begin
+          run: dotnet sonarscanner begin /k:"${{ env.key }}" /n:"${{ env.name }}" /v:"${{ env.version }}" /o:"${{ env.organization }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml"
+          env:
+            key: "wkrea_appdemo"
+            name: "App.Api"
+            version: "1."
+            organization: "wkrea"
+
+        # - name: scanner build
+        #   run: |
+        #     dotnet build ./BackEnd/*.sln
+        #   # dotnet build ./BackEnd/App.Api/*.csproj
+        #   # dotnet build ./BackEnd/App.Infra/*.csproj
+        #   # dotnet build ./BackEnd/App.Core/*.csproj
+
+        - name: setup Java 11
+          uses: actions/setup-java@v1
+          with:
+            java-version: '11' # The JDK version to make available on the path.
+            java-package: jre # (jre, jdk, or jdk+fx) - defaults to jdk
+            architecture: x64 # (x64 or x86) - defaults to x64
+
+        - name: scanner test
+          run: |
+            dotnet test ./BackEnd/*.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../lcov
+          # cd ./BackEnd/App.Test/
+          # dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../lcov
+
+        - name: scanner end
+          run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+
+        # - name: Content list
+        #   run: |
+        #     #ls ./
+        #     ls ./BackEnd/App.Test
+        #     #ls .
+
+        # - name: SonarCloud Scan AppDemo
+        #   uses: sonarsource/sonarcloud-github-action@master
+        #   # uses: sonarsource/sonarcloud-github-action@v1.3
+        #   env:
+        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        #   with:
+        #     projectBaseDir: . #/BackEnd/App.Test/
+        #     args: >
+        #       -Dsonar.organization=wkrea
+        #       -Dsonar.projectKey=wkrea_appdemo
+        #       -Dsonar.verbose=false
+        #       -Dsonar.sources=./BackEnd/App.Api/
+        #       -Dsonar.python.coverage.reportPaths=coverage.xml
+
