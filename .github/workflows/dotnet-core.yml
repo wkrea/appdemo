@@ -7,9 +7,11 @@
         - CICD
         - wtests
         - B_warevalo
+        - 8A_warevalo
         - B_acelas
         - B_cmalaver
         - B_dmartinez
+        - B_dmoreno
         - B_gcastro
         - B_jrangel
         - B_jrobles
@@ -20,6 +22,7 @@
         - A_acelis
         - A_dsuarez
         - A_jcaballero
+        - 8A_jcaballero
         
   jobs:
     build:

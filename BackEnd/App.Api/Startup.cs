@@ -1,15 +1,12 @@
-﻿using System.Text.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using App.Api.Modelos;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Api
 {
@@ -54,8 +51,6 @@ namespace App.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //UpdateDatabase(app);
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -81,19 +76,5 @@ namespace App.Api
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
         }
-
-        //private static void UpdateDatabase(IApplicationBuilder app)
-        //{
-        //    using (var serviceScope = app
-        //                                .ApplicationServices
-        //                                .GetRequiredService<IServiceScopeFactory>()
-        //                                .CreateScope())
-        //    {
-        //        using (var context = serviceScope.ServiceProvider.GetService<UdiDbContext>())
-        //        {
-        //            context.Database.Migrate();
-        //        }
-        //    }
-        //}
     }
 }
