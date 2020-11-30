@@ -29,7 +29,8 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<EstudianteDTO>>> GetAll()
         {
-            return Ok();
+            var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
+            return Ok(Estudiantes.Select(s => s.ToDTO()));
         }
 
         /// <summary>
@@ -43,7 +44,12 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Get(int id)
         {
-            return Ok();
+            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+
+            if (Estudiante == null)
+                return NotFound();
+
+            return Ok(Estudiante.ToDTO());
         }
 
         /// <summary>
