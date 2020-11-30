@@ -59,17 +59,5 @@ namespace App.Api
                 endpoints.MapControllers();
             });
         }
-
-        private async Task JsonResponseWriter(HttpContext context, HealthReport report)
-        {
-            context.Response.ContentType = "application/json";
-            await JsonSerializer.SerializeAsync(
-                context.Response.Body,
-                new { Status = report.Status.ToString() },
-                new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
-        }
     }
 }
