@@ -114,7 +114,7 @@ namespace App.Tests
             Assert.Equal(1, responseEstudiante.EscuelaId);
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        [Fact]
         public async Task GetEstudiante_ReturnsNotFound()
         {
             // Arrange
