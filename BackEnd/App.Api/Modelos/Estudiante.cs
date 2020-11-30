@@ -6,5 +6,6 @@ namespace App.Api.Modelos
         public string Nombre {get; set;}
         public int CursoId {get; set;}
         public Curso Curso {get; set;}
+    
     }
 }
