@@ -9,11 +9,10 @@ namespace App.Api.Modelos
             Database.EnsureDeleted();
             Database.EnsureCreated(); 
         }
-        public DbSet<Escuela> escuelas {get;set;}
-        public DbSet<Profesor> profesores {get;set;}
-        public DbSet<Curso> cursos {get;set;}
-        public DbSet<Estudiante> estudiantes {get;set;}
-        
+        public DbSet<Escuela> Escuelas {get;set;}
+        public DbSet<Profesor> Profesores {get;set;}
+        public DbSet<Curso> Cursos {get;set;}
+        public DbSet<Estudiante> Estudiantes {get;set;}
         
 
         protected override void OnModelCreating(ModelBuilder builder){
