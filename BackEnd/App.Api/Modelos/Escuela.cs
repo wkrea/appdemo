@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-
 namespace App.api.Modelos
 {
-    
-    public class Profesor
+        public class Escuela
     {
         public int id { get; set; }
         // [required]
         public string nombre { get; set; }
         // [required]
-         public Escuela escuela { get; set; }
+         public string ciudad{ get; set; }
         // [required]
-         public int escuelaId { get; set; }
+         public string departamento { get; set; }
         // [required]
-        public ICollection<Curso> Cursos  { get; set; }
+        public ICollection<Profesor> Profesores  { get; set; }
+        
     }
-    }
-
+}
