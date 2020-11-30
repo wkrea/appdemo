@@ -14,9 +14,9 @@ ___
 > git fetch upstream
 > git rebase upstream/main
 > git push -f origin main
-> git checkout B_dmoreno
+> git checkout <Nombre_de_su_branch>
 > git merge main
-> git push origin B_dmoreno
+> git push origin <Nombre_de_su_branch>
 > ```
 
 ## Métricas de Confiabilidad
