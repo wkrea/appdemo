@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace App.Api.Modelos
@@ -10,5 +11,5 @@ namespace App.Api.Modelos
       public Profesor Profesor { get; set; }
 
         public ICollection<Estudiante> Estudiantes { get; set; }
-    }
+  }
 }
