@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace App.api.Controllers
+namespace App.Api.Controllers
 {
-    [ApiController]
+	[ApiController]
 	[Route("")]
 	public class EndpointsController : ControllerBase
 	{

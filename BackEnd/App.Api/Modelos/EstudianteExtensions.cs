@@ -26,9 +26,6 @@ namespace App.Api.Modelos
 
         public static EstudianteDTO ToDTO(this Estudiante Estudiante)
         {
-
-            Console.WriteLine(Estudiante.Curso);
-
             return new EstudianteDTO
             {
                 Id = Estudiante.Id,

@@ -3,6 +3,22 @@
 Aplicación demo para aplicación de metodología modular
 ___
 
+> :warning: **Para mantener su prepositorio al día**
+>
+> por favor, hacer los siguientes comandos en su carpeta de repositorio
+>
+> ``` bash
+> git checkout main
+> git remote add upstream https://github.com/wkrea/appdemo.git
+> git remote -v
+> git fetch upstream
+> git rebase upstream/main
+> git push -f origin main
+> git checkout <Nombre_de_su_branch>
+> git merge main
+> git push origin <Nombre_de_su_branch>
+> ```
+
 ## Métricas de Confiabilidad
 
 Las métricas de seguridad para productos de software proporcionan una medición cuantitativa del grado de confiabilidad de los sistemas de software
