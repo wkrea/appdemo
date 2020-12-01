@@ -14,7 +14,17 @@ namespace App.Api.Modelos
         public DbSet<Profesor> Profesores {get; set;}
 
         protected override void OnModelCreating(ModelBuilder builder){
-            builder.Entity<Curso>().HasKey(p => p.Id);
+
+            builder.Entity<Curso>().HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
+            builder.Entity<Curso>().HasOne(c => c.profesor).WithMany(p => p.Cursos);
+
+            builder.Entity<Escuela>().HasMany(e => e.profesores).WithOne(p => p.Escuela);
+
+            builder.Entity<Estudiante>().HasOne(est => est.Curso).WithMany(c => c.Estudiantes);
+
+            builder.Entity<Profesor>().HasOne(p => p.Escuela).WithMany(e => e.profesores);
+            builder.Entity<Profesor>().HasMany(p => p.Cursos).WithOne(c => c.profesor);
+
             builder.Entity<Curso>().HasData(
                 new Curso(){Id = 1, Nombre = "Servicios Web"},
                 new Curso(){Id = 2, Nombre = "Sistemas Operativos"}

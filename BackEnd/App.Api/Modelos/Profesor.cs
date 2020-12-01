@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Api.Modelos
 {
     public class Profesor
     {
         public int Id {get; set;}
-
+        [Required]
         public string Nombre {get; set;}
         
         public int EscuelaId {get; set;}
