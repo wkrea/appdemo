@@ -91,7 +91,7 @@ namespace App.Tests
             _factory = factory;
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        [Fact]
         public async Task GetEstudiante_ReturnsSuccessAndEstudiante()
         {
             // Arrange
@@ -114,7 +114,7 @@ namespace App.Tests
             Assert.Equal(1, responseEstudiante.EscuelaId);
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        [Fact]
         public async Task GetEstudiante_ReturnsNotFound()
         {
             // Arrange
@@ -127,7 +127,7 @@ namespace App.Tests
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        [Fact]
         public async Task GetAllEstudiantes_ReturnsSuccessAndEstudiantes()
         {
             // Arrange
