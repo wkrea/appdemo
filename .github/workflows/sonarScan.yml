@@ -22,12 +22,15 @@
     pull_request:
       branches: 
         - main
+        - main_tests
         - CICD
         - wtests
         - B_warevalo
+        - 8A_warevalo
         - B_acelas
         - B_cmalaver
         - B_dmartinez
+        - B_dmoreno
         - B_gcastro
         - B_jrangel
         - B_jrobles
@@ -38,6 +41,8 @@
         - A_acelis
         - A_dsuarez
         - A_jcaballero
+        - 8A_jcaballero
+        - A_requena
   
   ###############
   # Set the Job #
@@ -75,8 +80,8 @@
         - name: scanner begin
           run: dotnet sonarscanner begin /k:"${{ env.key }}" /n:"${{ env.name }}" /v:"${{ env.version }}" /o:"${{ env.organization }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml"
           env:
-            key: "wkrea_appdemo"
-            name: "App.Api"
+            key: "wkrea_appdemo2"
+            name: "appdemo"
             version: "1."
             organization: "wkrea"
 
