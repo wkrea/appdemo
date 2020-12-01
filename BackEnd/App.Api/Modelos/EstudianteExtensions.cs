@@ -9,7 +9,7 @@ namespace App.Api.Modelos
         public static void Update(this Estudiante EstudianteToUpdate, EstudianteDTO EstudianteDto, Curso curso)
         {
             if (EstudianteDto.Id != EstudianteToUpdate.Id) throw new NotSupportedException();
-            EstudianteToUpdate.Nombre = EstudianteDto.Nombre;
+            EstudianteToUpdate.Nombre = EstudianteDto.nombre;
             EstudianteToUpdate.Curso = curso;
         }
 
@@ -19,7 +19,7 @@ namespace App.Api.Modelos
             return new Estudiante
             {
                 Id = EstudianteDto.Id,
-                Nombre = EstudianteDto.Nombre,
+                Nombre = EstudianteDto.nombre,
                 Curso = curso
             };
         }
@@ -29,10 +29,10 @@ namespace App.Api.Modelos
             return new EstudianteDTO
             {
                 Id = Estudiante.Id,
-                Nombre = Estudiante.Nombre,
+                nombre = Estudiante.Nombre,
                 CursoId = Estudiante.CursoId,
-                ProfesorId = Estudiante.Curso.Profesor.Id,
-                EscuelaId = Estudiante.Curso.Profesor.Escuela.Id
+                ProfesorId = Estudiante.Curso.profesor.Id,
+                EscuelaId = Estudiante.Curso.profesor.Escuela.Id
             };
         }
     }
