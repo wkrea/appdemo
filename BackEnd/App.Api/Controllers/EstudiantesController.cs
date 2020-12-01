@@ -21,10 +21,6 @@ namespace App.Api.Controllers
             _dbContext = dbContext;
         }
 
-        /// <summary>
-        /// GET (Read all) /Estudiantes
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<EstudianteDTO>>> GetAll()
@@ -32,13 +28,7 @@ namespace App.Api.Controllers
             var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
             return Ok(Estudiantes.Select(s => s.ToDTO()));
         }
-
-        /// <summary>
-        /// GET (Read) /Estudiante/{id}
-        /// https://localhost:5001/estudiantes/1
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -52,11 +42,6 @@ namespace App.Api.Controllers
             return Ok(Estudiante.ToDTO());
         }
 
-        /// <summary>
-        /// POST (Create) /Estudiante
-        /// </summary>
-        /// <param name="EstudianteDto"></param>
-        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -64,34 +49,28 @@ namespace App.Api.Controllers
         public async Task<ActionResult<EstudianteDTO>> Crear([FromBody] EstudianteDTO EstudianteDto)
         {
             var updatedEstudianteDto = new EstudianteDTO();
-            return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
+
+            await _dbContext.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);;
         }
 
-        /// <summary>
-        /// DELETE /Estudiante/{id}
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Eliminar(int id)
         {
+            await _dbContext.SaveChangesAsync();
             return Ok();
         }
 
-        /// <summary>
-        /// PUT (Update) a Estudiante by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="EstudianteDto"></param>
-        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Editar(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
+            await _dbContext.SaveChangesAsync();
             return NoContent();
         }
     }
