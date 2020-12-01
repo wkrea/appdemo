@@ -27,10 +27,11 @@ namespace App.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerator<EstudianteDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerator<Estudiante>>> GetAll()
         {
             var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
-            return Ok(Estudiantes.Select(s => s.ToDTO()));
+            return Ok(Estudiantes);
+            // return Ok(Estudiantes.Select(s => s.ToDTO()));
         }
 
         /// <summary>
@@ -42,15 +43,15 @@ namespace App.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<EstudianteDTO>> Get(int id)
+        public async Task<ActionResult<Estudiante>> Get(int id)
         {
             var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
 
             if (Estudiante == null)
                 return NotFound();
 
-            return Ok(Estudiante.ToDTO());
-            //return Ok(Estudiante);
+            // return Ok(Estudiante.ToDTO());
+            return Ok(Estudiante);
         }
 
         /// <summary>
