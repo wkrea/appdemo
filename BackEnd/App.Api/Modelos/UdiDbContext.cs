@@ -1,85 +1,60 @@
-using System.Diagnostics.Tracing;
-using System.IO;
-using System.Collections.Immutable;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace App.Api.Modelos
 {
     public class UdiDbContext : DbContext
     {
-        public UdiDbContext(DbContextOptions<UdiDbContext> opts) : base(opts)
+        public UdiDbContext(DbContextOptions<UdiDbContext> options) : base(options)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
-        public DbSet<Curso> cursos {get; set;}
-        public DbSet<Escuela> escuelas {get; set;}
-        public DbSet<Profesor> profesores {get; set;}
-        public DbSet<Estudiante>  estudiantes {get; set;}
-
+        public DbSet<Escuela> Escuelas { get; set; }
+        public DbSet<Profesor> Profesores { get; set; }
+        public DbSet<Curso> Cursos { get; set; }
+        public DbSet<Estudiante> Estudiantes { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Estudiante>()
-            .HasOne(e => e.Curso)
-            .WithMany(c => c.Estudiantes)
-            .HasForeignKey(e => e.CursoId);
+            base.OnModelCreating(builder);
 
-            builder.Entity<Profesor>()
-            .HasOne(p => p.Escuela)
-            .WithMany(e => e.Profesores)
-            .HasForeignKey(p => p.EscuelaId);
-
-            builder.Entity<Curso>()
-            .HasOne(c => c.Profesor)
-            .WithMany(p => p.Cursos)
-            .HasForeignKey(c => c.ProfesorId);
-            /*
-                -Cuales son los campos requeridos en los modelos
-                -Nombre
-                -Ciudad
-                 No permitir que el id no se autogenere
-            */
-            //Id no autogenerado
             builder.Entity<Escuela>(esc =>
             {
                 esc.HasKey(e => e.Id);
                 esc.Property(p => p.Id).ValueGeneratedNever();
+                esc.Property(e => e.Nombre).IsRequired();
+                esc.Property(e => e.Ciudad).IsRequired();
+                esc.Property(e => e.Departamento).IsRequired();
+                esc.HasMany(e => e.Profesores).WithOne(p => p.Escuela);
             });
+
+            builder.Entity<Profesor>(p =>
+            {
+                p.HasKey(p => p.Id);
+                p.Property(p => p.Id).ValueGeneratedNever();
+                p.Property(p => p.Nombre).IsRequired();
+                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores);
+                p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
+            });
+
+            builder.Entity<Curso>(cur =>
+            {
+                cur.HasKey(c => c.Id);
+                cur.Property(c => c.Id).ValueGeneratedNever();
+                cur.Property(c => c.Nombre).IsRequired();
+                cur.HasOne(c => c.Profesor).WithMany(p => p.Cursos);
+                cur.HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
+            });
+
             builder.Entity<Estudiante>(est =>
             {
                 est.HasKey(e => e.Id);
-                est.Property(p => p.Id).ValueGeneratedNever();
-            });
-            builder.Entity<Curso>(est =>
-            {
-                est.HasKey(c => c.Id);
-                est.Property(p => p.Id).ValueGeneratedNever();
-            });
-            builder.Entity<Profesor>(est =>
-            {
-                est.HasKey(p => p.Id);
-                est.Property(p => p.Id).ValueGeneratedNever();
+                est.Property(e => e.Id).ValueGeneratedNever();
+                est.Property(e => e.Nombre).IsRequired();
+                est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
 
-            //Relacion entre tablas
-            /*builder.Entity<Curso>().HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
-            builder.Entity<Estudiante>().HasOne(e => e.Curso).WithMany(cur => cur.Estudiantes);
-            
-            builder.Entity<Curso>().HasOne(c => c.Profesor).WithMany(pro => pro.Cursos);
-            builder.Entity<Profesor>().HasMany(p => p.Cursos).WithOne(cur => cur.Profesor);
-
-            builder.Entity<Escuela>().HasMany(e => e.Profesores).WithOne(pro => pro.Escuela);
-            builder.Entity<Profesor>().HasOne(p => p.Escuela).WithMany(esc => esc.Profesores);*/
-
-            //Campos requeridos
-            builder.Entity<Escuela>().Property(esc => esc.Nombre).IsRequired();
-            builder.Entity<Escuela>().Property(esc => esc.Ciudad).IsRequired();
-            builder.Entity<Estudiante>().Property(est => est.Nombre).IsRequired();
-            builder.Entity<Profesor>().Property(pro => pro.Nombre).IsRequired();
-            builder.Entity<Curso>().Property(cur => cur.Nombre).IsRequired();
-
-            //Creacion de los datos que siempre estaran en la base de datos
-            builder.Entity<Curso>().HasData(
+             builder.Entity<Curso>().HasData(
                 new Curso(){ Id = 1, Nombre = "6L", ProfesorId = 1},
                 new Curso(){ Id = 2, Nombre = "7L", ProfesorId = 2}
             );

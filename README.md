@@ -3,23 +3,39 @@
 Aplicación demo para aplicación de metodología modular
 ___
 
+> :warning: **Para mantener su prepositorio al día**
+>
+> por favor, hacer los siguientes comandos en su carpeta de repositorio
+>
+> ``` bash
+> git checkout main
+> git remote add upstream https://github.com/wkrea/appdemo.git
+> git remote -v
+> git fetch upstream
+> git rebase upstream/main
+> git push -f origin main
+> git checkout <Nombre_de_su_branch>
+> git merge main
+> git push origin <Nombre_de_su_branch>
+> ```
+
 ## Métricas de Confiabilidad
 
 Las métricas de seguridad para productos de software proporcionan una medición cuantitativa del grado de confiabilidad de los sistemas de software
 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=security_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=wkrea_appdemo)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=security_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
 
 ## Coverage
 
 La cobertura de código es una medida que nos indica el porcentaje de código validado por los tests.
 
-[![Coverage Status](https://coveralls.io/repos/github/wkrea/appdemo/badge.svg?branch=main)](https://coveralls.io/github/wkrea/appdemo?branch=main) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=coverage)](https://sonarcloud.io/dashboard?id=wkrea_appdemo)
+[![Coverage Status](https://coveralls.io/repos/github/wkrea/appdemo/badge.svg?branch=main)](https://coveralls.io/github/wkrea/appdemo?branch=main) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=coverage)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
 
 ## Métricas de calidad (QA)
 
 El Quality Gate es la función que utiliza SonarQube para asegurar el cumplimiento de la Política de Calidad en tu organización.
 
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=alert_status)](https://sonarcloud.io/dashboard?id=wkrea_appdemo) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=bugs)](https://sonarcloud.io/dashboard?id=wkrea_appdemo) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=wkrea_appdemo) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo&metric=code_smells)](https://sonarcloud.io/dashboard?id=wkrea_appdemo)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=alert_status)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=bugs)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=code_smells)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=sqale_index)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
 
 ### Título
 

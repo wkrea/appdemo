@@ -1,84 +1,99 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
-using App.Api.Repositorios;
-using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Controllers
 {
-        [ApiController]
-    [Route("[controller]")] //http://localhost:5000/Personas
+    [Route("[controller]")]
+    [ApiController]
     public class EstudiantesController : ControllerBase
     {
-        private readonly IEstudianteRepo context;
-        public EstudiantesController(IEstudianteRepo estudianteRepo)
+        private readonly UdiDbContext _dbContext;
+
+        public EstudiantesController(UdiDbContext dbContext)
         {
-            context = estudianteRepo;
-        }
-        [HttpGet]
-        public async Task<ActionResult<List<Estudiante>>> GetAll()
-        {
-            return await context.obtenerEstudiantes();
+            _dbContext = dbContext;
         }
 
+        /// <summary>
+        /// GET (Read all) /Estudiantes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<EstudianteDTO>>> GetAll()
+        {
+            var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
+            return Ok(Estudiantes.Select(s => s.ToDTO()));
+        }
+
+        /// <summary>
+        /// GET (Read) /Estudiante/{id}
+        /// https://localhost:5001/estudiantes/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Estudiante>> Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<EstudianteDTO>> Get(int id)
         {
-            return await context.obtenerEstudiante(id);
+            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+
+            if (Estudiante == null)
+                return NotFound();
+
+            return Ok(Estudiante.ToDTO());
         }
+
+        /// <summary>
+        /// POST (Create) /Estudiante
+        /// </summary>
+        /// <param name="EstudianteDto"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] Estudiante estudiante)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<ActionResult<EstudianteDTO>> Crear([FromBody] EstudianteDTO EstudianteDto)
         {
-            try
-            {
-                await context.crearEstudiante(estudiante);
-                return Ok();
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            var updatedEstudianteDto = new EstudianteDTO();
+            return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
         }
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, [FromBody] Estudiante estEditado)
-        {
-            try
-            {
-                var existe = await context.obtenerEstudiante(id);
-                if(existe == null){
-                    return NotFound();
-                }
-                if(existe.Id != estEditado.Id){
-                    return BadRequest();
-                }
-                await context.editarEstudiante(estEditado);
-            }
-            catch
-            {
-                return BadRequest();
-            }
-            return Ok();
-        }
+
+        /// <summary>
+        /// DELETE /Estudiante/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<EstudianteDTO>> Eliminar(int id)
         {
-            try
-            {
-                var existe = await context.obtenerEstudiante(id);
-                if(existe == null){
-                    return NotFound();
-                }
-                if(existe.Id != id){
-                    return BadRequest();
-                }
-                await context.eliminarEstudiante(id);
-            }
-            catch
-            {
-                return BadRequest();
-            }
             return Ok();
+        }
+
+        /// <summary>
+        /// PUT (Update) a Estudiante by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="EstudianteDto"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Editar(int id, [FromBody] EstudianteDTO EstudianteDto)
+        {
+            return NoContent();
+
         }
     }
 }
