@@ -8,14 +8,12 @@ namespace App.Api.Modelos
         {
             Database.EnsureDeleted();
             Database.EnsureCreated();
-            //Database.MigrateAsync();
         }
 
         public DbSet<Escuela> Escuelas { get; set; }
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -55,7 +53,6 @@ namespace App.Api.Modelos
                 est.Property(e => e.Nombre).IsRequired();
                 est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
-
             // Datos semilla
             
             modelBuilder.Entity<Escuela>().HasData(
@@ -94,5 +91,3 @@ namespace App.Api.Modelos
                 new Estudiante(){ Id = 8, Nombre = "Pedro Pereira", CursoId = 6}
             );
         }
-    }
-}

@@ -18,6 +18,8 @@
         - A_acelis
         - A_dsuarez
         - A_jcaballero
+        - 8A_jcaballero
+        - A_requena
 
     pull_request:
       branches: 
@@ -36,6 +38,8 @@
         - A_acelis
         - A_dsuarez
         - A_jcaballero
+        - 8A_jcaballero
+        - A_requena
         
   jobs:
     build:

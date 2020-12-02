@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -13,8 +13,8 @@ namespace App.Api.Controllers
     [ApiController]
     public class EstudiantesController : ControllerBase
     {
-
         private readonly UdiDbContext _dbContext;
+
         public EstudiantesController(UdiDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -28,7 +28,7 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<EstudianteDTO>>> GetAll()
         {
-            var Estudiantes = await _dbContext.Estudiantes.ToListAsync();
+            var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
             return Ok(Estudiantes.Select(s => s.ToDTO()));
         }
 
@@ -119,7 +119,7 @@ namespace App.Api.Controllers
             // si no existe, retornar NotFound
 
             // verificar que el curso id, que viene en el DTO para modificar matricula (actualizar)
-            // exista en la base, de lo contrario manterner el mismo curso en el que esté matriculado
+            // exista en la base, de lo contrario mantener el mismo curso en el que esté matriculado
             // Si no se encuentra que el estudiante este en un curso, retornar NotFound
 
             // Actualizar el estudiante, recuerden que existe un método Update en Extensions

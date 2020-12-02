@@ -22,7 +22,6 @@ namespace App.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -33,17 +32,9 @@ namespace App.Api
             });
             services.AddHealthChecks();
 
-            //services.AddDbContext<UdiDbContext>();
             services.AddDbContext<UdiDbContext>(builder =>
                 builder.UseInMemoryDatabase("UdiDb-Memory").UseLazyLoadingProxies()
                 , ServiceLifetime.Singleton);
-
-            //SqlServer
-            //services.AddDbContext<UdiDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("UdiDb"))
-            //        , ServiceLifetime.Singleton
-            //    );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,15 +45,13 @@ namespace App.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //UpdateDatabase(app);
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseHealthChecks("/health", new HealthCheckOptions {ResponseWriter = JsonResponseWriter});
+            app.UseHealthChecks("/health", new HealthCheckOptions { ResponseWriter = JsonResponseWriter });
 
             app.UseEndpoints(endpoints =>
             {
@@ -74,26 +63,12 @@ namespace App.Api
         {
             context.Response.ContentType = "application/json";
             await JsonSerializer.SerializeAsync(
-                context.Response.Body, 
+                context.Response.Body,
                 new { Status = report.Status.ToString() },
-                new JsonSerializerOptions 
+                new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
         }
-
-        //private static void UpdateDatabase(IApplicationBuilder app)
-        //{
-        //    using (var serviceScope = app
-        //                                .ApplicationServices
-        //                                .GetRequiredService<IServiceScopeFactory>()
-        //                                .CreateScope())
-        //    {
-        //        using (var context = serviceScope.ServiceProvider.GetService<UdiDbContext>())
-        //        {
-        //            context.Database.Migrate();
-        //        }
-        //    }
-        //}
     }
 }
