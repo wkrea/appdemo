@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Api.Modelos
 {
@@ -32,10 +33,12 @@ namespace App.Api.Modelos
             {
                 p.HasKey(p => p.Id);
                 p.Property(p => p.Id).ValueGeneratedNever();
-                p.Property(p => p.Nombre).IsRequired();
-                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores);
+                p.Property(p => p.Nombre).IsRequired();                
+                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores).HasForeignKey(p => p.EscuelaId);
                 p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
             });
+
+            Console.WriteLine(modelBuilder);
 
             modelBuilder.Entity<Curso>(cur =>
             {
@@ -53,6 +56,60 @@ namespace App.Api.Modelos
                 est.Property(e => e.Nombre).IsRequired();
                 est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
+
+            var escuela  = new Escuela{
+                Ciudad = "Bucaramanga",
+                Id = 1,
+                Nombre = "Nombre",
+                Departamento = "Santander",
+            };
+            
+            var profesor  = new Profesor{
+                Id = 1,
+                Nombre = "Miguel fernando",
+                EscuelaId = 2,
+                Profesor = profesor,
+            };
+            
+            // var curso  = new Curso(){
+            //     Id = 1,
+            //     Nombre = "Curso 1",
+            //     ProfesorId = 1,
+            //     Profesor = profesor,
+            // };
+
+            modelBuilder.Entity<Escuela>().HasData(escuela);
+
+            modelBuilder.Entity<Profesor>().HasData(profesor);
+
+            /*modelBuilder.Entity<Profesor>( p => {
+
+                p.HasData(new Profesor {
+                    Id = 1,
+                    Nombre = "Miguel fernando",
+                    EscuelaId = 1,
+                });
+
+                p.OwnsOne(e => e.Escuela).HasData(new Escuela
+                {
+                    Ciudad = "Bucaramanga",
+                    Id = 1,
+                    Nombre = "Nombre",
+                    Departamento = "Santander", 
+                });
+            });*/
+            
+            // modelBuilder.Entity<Profesor>().HasData(
+            //     profesor
+            // );
+
+            // modelBuilder.Entity<Curso>().HasData(
+            //     curso
+            // );
+            
+            // modelBuilder.Entity<Estudiante>().HasData(
+            //     new Estudiante(){ Id=1, Nombre="Estudiante 1", CursoId= 1 }
+            // );
         }
     }
 

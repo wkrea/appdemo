@@ -26,13 +26,13 @@ namespace App.Api.Modelos
 
         public static EstudianteDTO ToDTO(this Estudiante Estudiante)
         {
+
+            //
             return new EstudianteDTO
             {
                 Id = Estudiante.Id,
                 Nombre = Estudiante.Nombre,
-                CursoId = Estudiante.CursoId,
-                ProfesorId = Estudiante.Curso.Profesor.Id,
-                EscuelaId = Estudiante.Curso.Profesor.Escuela.Id
+                CursoId = Estudiante.CursoId
             };
         }
     }

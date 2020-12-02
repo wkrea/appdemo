@@ -27,10 +27,14 @@ namespace App.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<EstudianteDTO>>> GetAll()
+        public async Task<ActionResult<List<Profesor>>> GetAll()
         {
-            var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
-            return Ok(Estudiantes.Select(s => s.ToDTO()));
+            //var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
+            //return Ok(Estudiantes.Select(s => s.ToDTO()));
+
+            var curso = await _dbContext.Profesores.ToArrayAsync();
+
+            return Ok(curso);
         }
 
         /// <summary>
