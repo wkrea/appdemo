@@ -26,6 +26,11 @@ namespace App.Api.Modelos
                 esc.Property(e => e.Departamento).IsRequired();
                 esc.HasMany(e => e.Profesores).WithOne(p => p.Escuela);
             });
+           
+  /*         modelBuilder.Entity<Escuela>().HasData(
+          new Escuela (){Id = 1,Nombre = "UIS", Ciudad = "Bucaramanga", Departamento = "Santander"}
+          );
+         */
 
             modelBuilder.Entity<Profesor>(p =>
             {
@@ -36,6 +41,10 @@ namespace App.Api.Modelos
                 p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
             });
 
+/*             modelBuilder.Entity<Profesor>().HasData(
+                new Profesor (){Id = 1, Nombre = "Juan Carlos Perez"}
+            ); */
+
             modelBuilder.Entity<Curso>(cur =>
             {
                 cur.HasKey(c => c.Id);
@@ -45,6 +54,10 @@ namespace App.Api.Modelos
                 cur.HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
             });
 
+  /*           modelBuilder.Entity<Curso>().HasData(
+              new Curso  (){Id=1,Nombre = "Redes"}
+            ); */
+
             modelBuilder.Entity<Estudiante>(est =>
             {
                 est.HasKey(e => e.Id);
@@ -52,6 +65,10 @@ namespace App.Api.Modelos
                 est.Property(e => e.Nombre).IsRequired();
                 est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
+
+     /*        modelBuilder.Entity<Estudiante>().HasData(
+            new Estudiante  (){Id=1,Nombre = "Camilo Valencia"}
+            ); */
         }
     }
 }
