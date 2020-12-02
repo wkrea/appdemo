@@ -91,3 +91,5 @@ namespace App.Api.Modelos
                 new Estudiante(){ Id = 8, Nombre = "Pedro Pereira", CursoId = 6}
             );
         }
+    }
+}
