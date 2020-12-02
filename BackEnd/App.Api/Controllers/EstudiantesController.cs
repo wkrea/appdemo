@@ -24,5 +24,23 @@ namespace App.Api.Controllers
             var result = await _dbContext.Estudiantes.ToListAsync();
             return Ok(result);
         }
+        [HttpPost]
+        public Task<ActionResult<Estudiante>> Create(Estudiante estudiante)
+        {
+            return null;
+        }
+
+        [HttpPut("{id}")]
+        public Task<IActionResult> Update(int id, Estudiante estudiante)
+        {
+            return null;
+        }
+        [HttpDelete("{id}")]
+        public Task<ActionResult<Estudiante>> Delete(int id)
+        {
+            return null;
+        }
+
+
     }
 }
