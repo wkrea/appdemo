@@ -15,6 +15,7 @@ namespace App.Api.Controllers
     public class EstudiantesController : ControllerBase
     {
         private readonly UdiDbContext _dbContext;
+
         public EstudiantesController(UdiDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -93,5 +94,23 @@ namespace App.Api.Controllers
         {
             return NoContent();
         }
+        [HttpPost]
+        public Task<ActionResult<Estudiante>> Create(Estudiante estudiante)
+        {
+            return null;
+        }
+
+        [HttpPut("{id}")]
+        public Task<IActionResult> Update(int id, Estudiante estudiante)
+        {
+            return null;
+        }
+        [HttpDelete("{id}")]
+        public Task<ActionResult<Estudiante>> Delete(int id)
+        {
+            return null;
+        }
+
+
     }
 }

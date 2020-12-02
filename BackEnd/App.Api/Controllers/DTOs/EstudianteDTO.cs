@@ -1,4 +1,4 @@
-﻿namespace App.Api.Controllers.DTOs
+namespace App.Api.Controllers.DTOs
 {
     public class EstudianteDTO
     {
