@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Api.Modelos
 {
@@ -38,7 +39,7 @@ namespace App.Api.Modelos
             });
 
             modelBuilder.Entity<Curso>(cur =>
-            {
+        {
                 cur.HasKey(c => c.Id);
                 cur.Property(c => c.Id).ValueGeneratedNever();
                 cur.Property(c => c.Nombre).IsRequired();
