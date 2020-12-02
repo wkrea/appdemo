@@ -74,15 +74,7 @@ namespace App.Api.Modelos
                 new Profesor(){ Id = 5, Nombre = "Elkin Plata", EscuelaId=3}
             ); 
 
-            // var curso1 = 
-            // var curso2 = 
-            // var curso3 = 
-            // var curso4 = 
-            // var curso5 = 
-            // var curso6 = 
-
             modelBuilder.Entity<Curso>().HasData( 
-                // curso1, curso2, curso3, curso4, curso5, curso6
                 new Curso(){ Id = 1, Nombre = "Servicios Web", ProfesorId=1 },
                 new Curso(){ Id = 2, Nombre = "Estadística y probabilidades" , ProfesorId=3 },
                 new Curso(){ Id = 3, Nombre = "Sistemas Operativos", ProfesorId=1 },
