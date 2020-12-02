@@ -2,10 +2,10 @@
 {
     public class EstudianteDTO
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public int cursoId { get; set; }
-        public int profesorId { get; set; }
-        public int escuelaId { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public int CursoId { get; set; }
+        public int ProfesorId { get; set; }
+        public int EscuelaId { get; set; }
     }
 }

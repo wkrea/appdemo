@@ -2,9 +2,13 @@
 {
     public class Estudiante
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string cursoId { get; set; }
-        public Curso curso { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+
+        /// <summary>
+        /// Establecer relación completa (no requiere FluentApi)
+        /// </summary>
+        public int CursoId { get; set; }
+        public virtual Curso Curso { get; set; }
     }
 }

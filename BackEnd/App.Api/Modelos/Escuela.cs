@@ -4,10 +4,11 @@ namespace App.Api.Modelos
 {
     public class Escuela
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string ciudad { get; set; }
-        public string departamento { get; set; }
-        public ICollection<Profesor> profesores { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Ciudad { get; set; }
+        public string Departamento { get; set; }
+
+        public ICollection<Profesor> Profesores { get; set; }
     }
 }

@@ -4,42 +4,56 @@ namespace App.Api.Modelos
 {
     public class UdiDbContext : DbContext
     {
-        public UdiDbContext(DbContextOptions<UdiDbContext> opts) : base(opts)
-        {
 
+        public UdiDbContext(DbContextOptions<UdiDbContext> options) : base(options)
+        {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
 
-        public DbSet<Escuela> escuelas { get; set; }
-        public DbSet<Profesor> profesores { get; set; }
-        public DbSet<Curso> cursos { get; set; }
-        public DbSet<Estudiante> estudiantes { get; set; }
-
+        public DbSet<Escuela> Escuelas { get; set; }
+        public DbSet<Profesor> Profesores { get; set; }
+        public DbSet<Curso> Cursos { get; set; }
+        public DbSet<Estudiante> Estudiantes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Model Builder
             base.OnModelCreating(modelBuilder);
 
-            //Curso
-            modelBuilder.Entity<Curso>().HasKey(curso => curso.id);
-            modelBuilder.Entity<Curso>().Property(curso => curso.id).ValueGeneratedNever();
-            modelBuilder.Entity<Curso>().HasOne(curso => curso.profesor).WithMany(profesores => profesores.cursos);
-            modelBuilder.Entity<Curso>().HasMany(curso => curso.estudiantes).WithOne(estudiantes => estudiantes.curso);
+            modelBuilder.Entity<Escuela>(esc =>
+            {
+                esc.HasKey(e => e.Id);
+                esc.Property(p => p.Id).ValueGeneratedNever();
+                esc.Property(e => e.Nombre).IsRequired();
+                esc.Property(e => e.Ciudad).IsRequired();
+                esc.Property(e => e.Departamento).IsRequired();
+                esc.HasMany(e => e.Profesores).WithOne(p => p.Escuela);
+            });
 
-            //Profesor
-            modelBuilder.Entity<Profesor>().HasKey(profesor => profesor.id);
-            modelBuilder.Entity<Profesor>().Property(profesor => profesor.id).ValueGeneratedNever();
-            modelBuilder.Entity<Profesor>().HasOne(profesor => profesor.escuela).WithMany(escuelas => escuelas.profesores);
-            modelBuilder.Entity<Profesor>().HasMany(profesor => profesor.cursos).WithOne(cursos => cursos.profesor);
+            modelBuilder.Entity<Profesor>(p =>
+            {
+                p.HasKey(p => p.Id);
+                p.Property(p => p.Id).ValueGeneratedNever();
+                p.Property(p => p.Nombre).IsRequired();
+                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores);
+                p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
+            });
 
-            //Estudiante
-            modelBuilder.Entity<Estudiante>().HasKey(estudiante => estudiante.id);
-            modelBuilder.Entity<Estudiante>().Property(estudiante => estudiante.id).ValueGeneratedNever();
-            modelBuilder.Entity<Estudiante>().HasOne(estudiante => estudiante.curso).WithMany(cursos => cursos.estudiantes);
+            modelBuilder.Entity<Curso>(cur =>
+            {
+                cur.HasKey(c => c.Id);
+                cur.Property(c => c.Id).ValueGeneratedNever();
+                cur.Property(c => c.Nombre).IsRequired();
+                cur.HasOne(c => c.Profesor).WithMany(p => p.Cursos);
+                cur.HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
+            });
 
-            //Escuela
-            modelBuilder.Entity<Escuela>().HasKey(escuela => escuela.id);
-            modelBuilder.Entity<Escuela>().Property(escuela => escuela.id).ValueGeneratedNever();
-            modelBuilder.Entity<Escuela>().HasMany(escuela => escuela.profesores).WithOne(profesores => profesores.escuela);
+            modelBuilder.Entity<Estudiante>(est =>
+            {
+                est.HasKey(e => e.Id);
+                est.Property(e => e.Id).ValueGeneratedNever();
+                est.Property(e => e.Nombre).IsRequired();
+                est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
+            });
         }
     }
 }

@@ -1,26 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace App.Api.Controllers
 {
-    [ApiController]
-    [Route("")]
-    public class EndpointsController : ControllerBase
-    {
-        private const string Message = "El log está funcionando";
-        private readonly ILogger<EndpointsController> _logger;
+	[ApiController]
+	[Route("")]
+	public class EndpointsController : ControllerBase
+	{
+		private readonly ILogger<EndpointsController> _logger;
 
-        public EndpointsController(ILogger<EndpointsController> logger)
-        {
-            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+		public EndpointsController(ILogger<EndpointsController> logger)
+		{
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+		}
 
-        [HttpGet]
-        public string Get()
-        {
-            _logger.LogInformation(message: Message);
-            return "Funcionando";
-        }
-    }
+		[HttpGet]
+		public object Get()
+		{
+			var responseObject = new
+			{
+				Status = "Api está en linea"
+            };
+			_logger.LogInformation($"Status: {responseObject.Status}");
+			return responseObject;
+		}
+	}
 }

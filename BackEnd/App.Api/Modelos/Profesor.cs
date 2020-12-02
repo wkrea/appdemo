@@ -4,10 +4,15 @@ namespace App.Api.Modelos
 {
     public class Profesor
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public int escuelaId { get; set; }
-        public Escuela escuela { get; set; }
-        public ICollection<Curso> cursos { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+
+        /// <summary>
+        /// Establecer relación completa (no requiere FluentApi)
+        /// </summary>
+        public int EscuelaId { get; set; }
+        public Escuela Escuela { get; set; }
+
+        public ICollection<Curso> Cursos { get; set; }
     }
 }
