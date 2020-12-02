@@ -92,6 +92,7 @@ namespace App.Tests
             _factory = factory;
         }
 
+        // [Fact]
         [Fact]
         public async Task GetEstudiante_ReturnsSuccessAndEstudiante()
         {
@@ -115,6 +116,7 @@ namespace App.Tests
             Assert.Equal(1, responseEstudiante.EscuelaId);
         }
 
+        // [Fact]
         [Fact]
         public async Task GetEstudiante_ReturnsNotFound()
         {
@@ -128,6 +130,7 @@ namespace App.Tests
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
+        // [Fact]
         [Fact]
         public async Task GetAllEstudiantes_ReturnsSuccessAndEstudiantes()
         {
@@ -149,6 +152,7 @@ namespace App.Tests
             Assert.Contains(responseEstudiantes, Estudiante => Estudiante.Id == 2);
         }
 
+        // [Fact]
         [Fact]
         public async Task CreateEstudiante_ReturnsSuccessNewEstudianteAndLocationHeader()
         {
@@ -160,7 +164,7 @@ namespace App.Tests
                 Nombre = "John Duarte",
                 CursoId = 1
             };
-            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             try
@@ -207,7 +211,7 @@ namespace App.Tests
                 Nombre = name,
                 CursoId = CursoId
             };
-            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             // Act
@@ -217,7 +221,8 @@ namespace App.Tests
             Assert.Equal(expectedStatusCode, response.StatusCode);
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        // [Fact]
+        [Fact]
         public async Task UpdateEstudiante_ReturnsSuccess()
         {
             // Arrange
@@ -228,7 +233,7 @@ namespace App.Tests
                 Nombre = "Juan Sandoval",
                 CursoId = 1
             };
-            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             // Act
@@ -254,7 +259,7 @@ namespace App.Tests
                 Nombre = name,
                 CursoId = CursoId
             };
-            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             // Act
@@ -265,6 +270,7 @@ namespace App.Tests
 
         }
 
+        // [Fact]
         [Fact]
         public async Task DeleteEstudiante_ReturnsSuccessAndEstudiante()
         {
@@ -297,6 +303,7 @@ namespace App.Tests
             Assert.Equal(Estudiante.Curso.Profesor.Escuela.Id, responseEstudiante.EscuelaId);
         }
 
+        // [Fact]
         [Fact]
         public async Task DeleteEstudiante_ReturnsNotFound()
         {

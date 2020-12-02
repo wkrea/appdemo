@@ -18,15 +18,12 @@
     push:
       branches:
         - main
-        - main_tests
         - CICD
         - wtests
         - B_warevalo
-        - 8A_warevalo
         - B_acelas
         - B_cmalaver
         - B_dmartinez
-        - B_dmoreno
         - B_gcastro
         - B_jrangel
         - B_jrobles
@@ -41,15 +38,12 @@
     pull_request:
       branches: 
         - main
-        - main_tests
         - CICD
         - wtests
         - B_warevalo
-        - 8A_warevalo
         - B_acelas
         - B_cmalaver
         - B_dmartinez
-        - B_dmoreno
         - B_gcastro
         - B_jrangel
         - B_jrobles

@@ -54,7 +54,6 @@ namespace App.Api.Modelos
                 est.Property(e => e.Nombre).IsRequired();
                 est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
-
             // Datos semilla
             
             modelBuilder.Entity<Escuela>().HasData(

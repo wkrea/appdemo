@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -61,7 +61,7 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<EstudianteDTO>> Crear([FromBody] EstudianteDTO EstudianteDto)
+        public async Task<ActionResult<EstudianteDTO>> Create([FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el campo nombre no venga nulo -> BadRequest
 
@@ -89,7 +89,7 @@ namespace App.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<EstudianteDTO>> Eliminar(int id)
+        public async Task<ActionResult<EstudianteDTO>> Delete(int id)
         {
             // verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
@@ -111,7 +111,7 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Editar(int id, [FromBody] EstudianteDTO EstudianteDto)
+        public async Task<IActionResult> Update(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el id del estudiante corresponda al de un estudiante de la base -> BadRequest
             // verificar que el campo nombre no venga nulo -> BadRequest
