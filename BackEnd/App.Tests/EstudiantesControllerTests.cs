@@ -31,6 +31,7 @@ namespace App.Tests
                 // This fetches the same single lifetime instantiation used by Controller classes
                 //_dbContext = factory.Services.GetRequiredService<UdiDbContext>();
                 _dbContext =  factory.Services.GetService<UdiDbContext>();
+                _dbContext.Database.EnsureDeleted();
 
                 // Seed in-memory database with some data needed for tests
                 var Escuela = new Escuela
@@ -148,7 +149,8 @@ namespace App.Tests
             Assert.Contains(responseEstudiantes, Estudiante => Estudiante.Id == 2);
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        // [Fact]
+        [Fact]
         public async Task CreateEstudiante_ReturnsSuccessNewEstudianteAndLocationHeader()
         {
             // Arrange
@@ -191,7 +193,11 @@ namespace App.Tests
             }
         }
 
+<<<<<<< HEAD
         [Theory(Skip = "Prueba omitida por el momento")]
+=======
+        [Theory]
+>>>>>>> 7d5670c... Solución del desafío
         [InlineData(1, "John Duarte", 1, HttpStatusCode.Conflict)]  // Id already exists
         [InlineData(3, null, 1, HttpStatusCode.BadRequest)]      // missing (null) Name
         [InlineData(3, "", 1, HttpStatusCode.BadRequest)]        // missing (empty) Name

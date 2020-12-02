@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
+using App.Api.Servicios;
 
 namespace App.Api.Controllers
 {
@@ -14,8 +15,8 @@ namespace App.Api.Controllers
     [ApiController]
     public class EstudiantesController : ControllerBase
     {
-        private readonly UdiDbContext _dbContext;
 
+        private readonly UdiDbContext _dbContext;
         public EstudiantesController(UdiDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -43,9 +44,9 @@ namespace App.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Estudiante>> Get(int id)
+        public async Task<ActionResult<EstudianteDTO>> Get(int id)
         {
-            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
 
             if (Estudiante == null)
                 return NotFound();
