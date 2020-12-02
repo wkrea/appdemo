@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
+using App.Api.Servicios;
 
 namespace App.Api.Controllers
 {
@@ -14,8 +15,8 @@ namespace App.Api.Controllers
     [ApiController]
     public class EstudiantesController : ControllerBase
     {
-        private readonly UdiDbContext _dbContext;
 
+        private readonly UdiDbContext _dbContext;
         public EstudiantesController(UdiDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -27,11 +28,10 @@ namespace App.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerator<Estudiante>>> GetAll()
+        public async Task<ActionResult<List<EstudianteDTO>>> GetAll()
         {
-            var Estudiantes = await _dbContext.Estudiantes.ToArrayAsync();
-            return Ok(Estudiantes);
-            // return Ok(Estudiantes.Select(s => s.ToDTO()));
+            var Estudiantes = await _dbContext.Estudiantes.ToListAsync();
+            return Ok(Estudiantes.Select(s => s.ToDTO()));
         }
 
         /// <summary>
@@ -43,15 +43,14 @@ namespace App.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Estudiante>> Get(int id)
+        public async Task<ActionResult<EstudianteDTO>> Get(int id)
         {
-            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
 
             if (Estudiante == null)
                 return NotFound();
 
-            // return Ok(Estudiante.ToDTO());
-            return Ok(Estudiante);
+            return Ok(Estudiante.ToDTO());
         }
 
         /// <summary>
@@ -68,15 +67,17 @@ namespace App.Api.Controllers
             if (string.IsNullOrEmpty(EstudianteDto.Nombre))
                 return BadRequest();
 
-            var @class = await _dbContext.Cursos.FindAsync(EstudianteDto.CursoId);
-            if (@class == null)
+            var curso = await _dbContext.Cursos()
+                                .FirstOrDefaultAsync(c => c.Id == EstudianteDto.CursoId);
+
+            if (curso == null)
                 return NotFound();
 
             var existingEstudiante = await _dbContext.Estudiantes.FindAsync(EstudianteDto.Id);
             if (existingEstudiante != null)
                 return Conflict();
 
-            var EstudianteToAdd = EstudianteDto.ToModel(@class);
+            var EstudianteToAdd = EstudianteDto.ToModel(curso);
             _dbContext.Estudiantes.Add(EstudianteToAdd);
             await _dbContext.SaveChangesAsync();
             var updatedEstudianteDto = EstudianteToAdd.ToDTO();
@@ -94,7 +95,8 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Delete(int id)
         {
-            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+            var Estudiante = await _dbContext.Estudiantes().FirstOrDefaultAsync(e => e.Id == id);
+
             if (Estudiante == null)
                 return NotFound();
 
@@ -121,13 +123,13 @@ namespace App.Api.Controllers
             var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
             if (Estudiante == null)
                 return NotFound();
-            var @class = EstudianteDto.CursoId != Estudiante.Curso.Id
+            var curso = EstudianteDto.CursoId != Estudiante.Curso.Id
                 ? await _dbContext.Cursos.FindAsync(id)
                 : Estudiante.Curso;
-            if (@class == null)
+            if (curso == null)
                 return NotFound();
 
-            Estudiante.Update(EstudianteDto, @class);
+            Estudiante.Update(EstudianteDto, curso);
             await _dbContext.SaveChangesAsync();
             return NoContent();
         }

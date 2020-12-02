@@ -16,7 +16,7 @@ namespace App.Tests
             _factory = factory;
         }
 
-        [Theory(Skip = "Prueba no activada por el momento")]
+        [Theory]
         [InlineData("/","Api está en linea")]
         [InlineData("/health","Healthy")]
         public async Task GetPath_ReturnsSuccessAndExpectedStatus(string path, string expectedStatus)
