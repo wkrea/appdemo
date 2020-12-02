@@ -35,7 +35,7 @@ namespace App.Api
 
             //services.AddDbContext<UdiDbContext>();
             services.AddDbContext<UdiDbContext>(builder =>
-                builder.UseInMemoryDatabase("UdiDb-Memory")
+                builder.UseInMemoryDatabase("UdiDb-Memory").UseLazyLoadingProxies()
                 , ServiceLifetime.Singleton);
 
             //SqlServer

@@ -11,8 +11,8 @@ namespace App.Api.Modelos
         /// Establecer relación completa (no requiere FluentApi)
         /// </summary>
         public int EscuelaId { get; set; }
-        public Escuela Escuela { get; set; }
+        public virtual Escuela Escuela { get; set; }
 
-        public ICollection<Curso> Cursos { get; set; }
+        public virtual ICollection<Curso> Cursos { get; set; }
     }
 }
