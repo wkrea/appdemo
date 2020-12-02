@@ -1,0 +1,39 @@
+version: '3.7'
+
+# volumes:
+#    dbdata:
+
+services:
+    db:
+        # image: mcmoe/mssqldocker:v2017.CU12.1
+        image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+        container_name: app_db
+        environment:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: 1p@sswordY
+          MSSQL_DB: app_db
+          MSSQL_USER: user_db
+          MSSQL_PASSWORD: 1p@sswordY
+        ports:
+            - "1433:1433"
+        volumes:
+          # - mssqldata:/var/opt/mssql
+          - ./db/mssqldata:/var/opt/mssql
+          # we copy our scripts into the container
+          - ./db/sql-scripts:/usr/src/app
+        working_dir: /usr/src/app
+        # run the script that will import the data AND sqlserver
+        command: sh -c '/opt/mssql/bin/sqlservr; echo "hola $SA_PASSWORD" && chmod +x ./init-db.sh; ./init-db.sh'
+  
+    # api:
+    #     container_name: api_backend
+    #     depends_on:
+    #        - db
+    #     image: api_netcore
+    #     build:
+    #       context: .
+    #     ports:
+    #       - "8080:80"
+    #     environment:
+    #       - ASPNETCORE_ENVIRONMENT=staging
+        
