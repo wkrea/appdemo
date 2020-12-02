@@ -149,7 +149,6 @@ namespace App.Tests
             Assert.Contains(responseEstudiantes, Estudiante => Estudiante.Id == 2);
         }
 
-        // [Fact]
         [Fact]
         public async Task CreateEstudiante_ReturnsSuccessNewEstudianteAndLocationHeader()
         {
@@ -193,11 +192,7 @@ namespace App.Tests
             }
         }
 
-<<<<<<< HEAD
-        [Theory(Skip = "Prueba omitida por el momento")]
-=======
         [Theory]
->>>>>>> 7d5670c... Solución del desafío
         [InlineData(1, "John Duarte", 1, HttpStatusCode.Conflict)]  // Id already exists
         [InlineData(3, null, 1, HttpStatusCode.BadRequest)]      // missing (null) Name
         [InlineData(3, "", 1, HttpStatusCode.BadRequest)]        // missing (empty) Name
@@ -243,7 +238,7 @@ namespace App.Tests
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
 
-        [Theory(Skip = "Prueba omitida por el momento")]
+        [Theory]
         [InlineData(2, 999, "Juan Sandoval", 1, HttpStatusCode.BadRequest)] // url and dto Id's don't match
         [InlineData(2, 2, null,  1, HttpStatusCode.BadRequest)]           // missing (null) Name
         [InlineData(2, 2, "",  1, HttpStatusCode.BadRequest)]             // missing (empty) Name
@@ -270,7 +265,7 @@ namespace App.Tests
 
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        [Fact]
         public async Task DeleteEstudiante_ReturnsSuccessAndEstudiante()
         {
             // Arrange
@@ -302,7 +297,7 @@ namespace App.Tests
             Assert.Equal(Estudiante.Curso.Profesor.Escuela.Id, responseEstudiante.EscuelaId);
         }
 
-        [Fact(Skip = "Prueba omitida por el momento")]
+        [Fact]
         public async Task DeleteEstudiante_ReturnsNotFound()
         {
             // Arrange
