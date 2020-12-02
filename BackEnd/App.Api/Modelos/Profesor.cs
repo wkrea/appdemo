@@ -13,6 +13,6 @@ namespace App.Api.Modelos
         public int EscuelaId { get; set; }
         public Escuela Escuela { get; set; }
 
-        public ICollection<Curso> Cursos { get; set; }
+        public ICollection<curso> Cursos { get; set; }
     }
 }

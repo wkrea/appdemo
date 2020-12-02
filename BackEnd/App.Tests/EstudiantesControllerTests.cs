@@ -48,7 +48,7 @@ namespace App.Tests
                     Escuela = Escuela
                 };
                 _dbContext.Profesores.Add(Profesor);
-                var @class = new Curso
+                var @class = new curso
                 {
                     Id = 1,
                     Nombre = "Servicios Web GNU",

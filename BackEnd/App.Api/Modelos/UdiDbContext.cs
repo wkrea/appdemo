@@ -13,7 +13,7 @@ namespace App.Api.Modelos
 
         public DbSet<Escuela> Escuelas { get; set; }
         public DbSet<Profesor> Profesores { get; set; }
-        public DbSet<Curso> Cursos { get; set; }
+        public DbSet<curso> Cursos { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,7 @@ namespace App.Api.Modelos
                 p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
             });
 
-            modelBuilder.Entity<Curso>(cur =>
+            modelBuilder.Entity<curso>(cur =>
         {
                 cur.HasKey(c => c.Id);
                 cur.Property(c => c.Id).ValueGeneratedNever();

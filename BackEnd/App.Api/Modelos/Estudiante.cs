@@ -9,6 +9,6 @@
         /// Establecer relación completa (no requiere FluentApi)
         /// </summary>
         public int CursoId { get; set; }
-        public virtual Curso Curso { get; set; }
+        public virtual curso Curso { get; set; }
     }
 }
