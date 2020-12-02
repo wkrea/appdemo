@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 using System.Text.Json;
 using System.Threading.Tasks;
-=======
-﻿using App.Api.Modelos;
-using Microsoft.EntityFrameworkCore; 
->>>>>>> 71be5db (Modificación en Startup)
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
