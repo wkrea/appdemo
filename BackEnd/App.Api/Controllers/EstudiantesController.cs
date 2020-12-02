@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
 using App.Api.Repositorios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Controllers
 {
-    [ApiController]
+        [ApiController]
     [Route("[controller]")] //http://localhost:5000/Personas
     public class EstudiantesController : ControllerBase
     {
@@ -44,11 +45,11 @@ namespace App.Api.Controllers
         {
             try
             {
-                var existe = context.obtenerEstudiante(id);
+                var existe = await context.obtenerEstudiante(id);
                 if(existe == null){
                     return NotFound();
                 }
-                if(existe.Id != id){
+                if(existe.Id != estEditado.Id){
                     return BadRequest();
                 }
                 await context.editarEstudiante(estEditado);
@@ -64,7 +65,7 @@ namespace App.Api.Controllers
         {
             try
             {
-                var existe = context.obtenerEstudiante(id);
+                var existe = await context.obtenerEstudiante(id);
                 if(existe == null){
                     return NotFound();
                 }

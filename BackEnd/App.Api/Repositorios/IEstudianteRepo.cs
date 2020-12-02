@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Repositorios
 {

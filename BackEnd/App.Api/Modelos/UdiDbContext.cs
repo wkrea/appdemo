@@ -19,6 +19,20 @@ namespace App.Api.Modelos
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Estudiante>()
+            .HasOne(e => e.Curso)
+            .WithMany(c => c.Estudiantes)
+            .HasForeignKey(e => e.CursoId);
+
+            builder.Entity<Profesor>()
+            .HasOne(p => p.Escuela)
+            .WithMany(e => e.Profesores)
+            .HasForeignKey(p => p.EscuelaId);
+
+            builder.Entity<Curso>()
+            .HasOne(c => c.Profesor)
+            .WithMany(p => p.Cursos)
+            .HasForeignKey(c => c.ProfesorId);
             /*
                 -Cuales son los campos requeridos en los modelos
                 -Nombre
@@ -48,14 +62,14 @@ namespace App.Api.Modelos
             });
 
             //Relacion entre tablas
-            builder.Entity<Curso>().HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
+            /*builder.Entity<Curso>().HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
             builder.Entity<Estudiante>().HasOne(e => e.Curso).WithMany(cur => cur.Estudiantes);
-
+            
             builder.Entity<Curso>().HasOne(c => c.Profesor).WithMany(pro => pro.Cursos);
             builder.Entity<Profesor>().HasMany(p => p.Cursos).WithOne(cur => cur.Profesor);
 
             builder.Entity<Escuela>().HasMany(e => e.Profesores).WithOne(pro => pro.Escuela);
-            builder.Entity<Profesor>().HasOne(p => p.Escuela).WithMany(esc => esc.Profesores);
+            builder.Entity<Profesor>().HasOne(p => p.Escuela).WithMany(esc => esc.Profesores);*/
 
             //Campos requeridos
             builder.Entity<Escuela>().Property(esc => esc.Nombre).IsRequired();
@@ -66,8 +80,8 @@ namespace App.Api.Modelos
 
             //Creacion de los datos que siempre estaran en la base de datos
             builder.Entity<Curso>().HasData(
-                new Curso(){ Id = 1, Nombre = "6L"},
-                new Curso(){ Id = 2, Nombre = "7L"}
+                new Curso(){ Id = 1, Nombre = "6L", ProfesorId = 1},
+                new Curso(){ Id = 2, Nombre = "7L", ProfesorId = 2}
             );
             builder.Entity<Escuela>().HasData(
                 new Escuela(){ Id = 1, Nombre = "Universidad de Investigación y Desarrollo", Ciudad = "Bucaramanga", Departamento = "Santander"}
@@ -77,7 +91,8 @@ namespace App.Api.Modelos
                 new Profesor(){ Id=2, Nombre="Alexandra Beltran", EscuelaId = 1 }
             );
             builder.Entity<Estudiante>().HasData(
-                new Estudiante(){ Id = 1, Nombre = "Marly Alexandra Acosta Arenales", CursoId = 1}
+                new Estudiante(){ Id = 1, Nombre = "Marly Alexandra Acosta Arenales", CursoId = 1},
+                new Estudiante(){ Id = 2, Nombre = "Estudiante Random", CursoId = 2}
             );
         }
     }

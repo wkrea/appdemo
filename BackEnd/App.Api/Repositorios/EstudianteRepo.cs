@@ -1,11 +1,15 @@
+using App.Api.Controllers.DTOs;
 using App.Api.Modelos;
+using App.Api.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace App.Api.Repositorios
 {
-    public class EstudianteRepo : IEstudianteRepo
+        public class EstudianteRepo : IEstudianteRepo
     {  
         private readonly UdiDbContext _db;
         
@@ -38,7 +42,7 @@ namespace App.Api.Repositorios
 
         public async Task eliminarEstudiante(int id)
         {
-            Estudiante estudiante =_db.estudiantes.Find(id);
+            Estudiante estudiante = await _db.estudiantes.FindAsync(id);
             _db.estudiantes.Remove(estudiante);
             await _db.SaveChangesAsync();
         }
