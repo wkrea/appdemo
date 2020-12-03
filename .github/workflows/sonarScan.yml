@@ -17,28 +17,7 @@
   on:
     push:
       branches:
-        - main
-        - main_tests
-        - CICD
-        - wtests
-        - B_warevalo
-        - 8A_warevalo
-        - B_acelas
-        - B_cmalaver
-        - B_dmartinez
-        - B_dmoreno
-        - B_gcastro
-        - B_jrangel
-        - B_jrobles
-        - B_jvalencia
-        - B_jvillamizar
-        - B_kvega
-        - B_macosta
-        - A_acelis
-        - A_dsuarez
-        - A_jcaballero
-        - 8A_jcaballero
-        - A_requena
+        - "main"
 
     pull_request:
       branches: 
@@ -63,8 +42,6 @@
         - B_jrangel
         - B_jrobles
         - B_jvalencia
-        - B_jvillamizar
-        - B_kvega
         - B_macosta
         - A_acelis
         - A_dsuarez
@@ -162,4 +139,3 @@
         #       -Dsonar.verbose=false
         #       -Dsonar.sources=./BackEnd/App.Api/
         #       -Dsonar.python.coverage.reportPaths=coverage.xml
-
