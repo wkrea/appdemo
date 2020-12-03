@@ -23,6 +23,7 @@ on:
     # branches: [ main, CICD, wtests ]
       branches: 
         - main
+        - main_tests
         - CICD
         - wtests
         - B_warevalo
