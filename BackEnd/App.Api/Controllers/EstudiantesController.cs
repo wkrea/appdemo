@@ -64,25 +64,28 @@ namespace App.Api.Controllers
         public async Task<ActionResult<EstudianteDTO>> Create([FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el campo nombre no venga nulo -> BadRequest
-            if (EstudianteDto.Nombre == null) {
-                BadRequest(); 
+            //if (EstudianteDto.Nombre == null) {
+              
+              if (string.IsNullOrEmpty(EstudianteDto.Nombre)){ 
+              return BadRequest(); 
             }
             
             //verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
             
             if(_dbContext.Cursos.FirstOrDefaultAsync(cur => cur.Id == EstudianteDto.CursoId) == null){
-                NotFound();
+                return NotFound();
             }
             // verificar que el estudiante no exista en la base
             // si existe, retortar conflicto
             if (_dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id == EstudianteDto.Id)!= null) {
-                Conflict();
+                return Conflict();
             }
 
             // convertir los datos de DTO a Model
             Curso cur = _dbContext.Cursos.FirstOrDefault(cur => cur.Id == EstudianteDto.CursoId);
-            Estudiante est = EstudianteExtensions.ToModel(EstudianteDto,cur);
+            //Estudiante est = EstudianteExtensions.ToModel(EstudianteDto,cur);
+            Estudiante est = EstudianteDto.ToModel (cur);
 
             // agregar el estudiante a la base de datos
             _dbContext.Estudiantes.Add(est);
@@ -91,7 +94,7 @@ namespace App.Api.Controllers
             await _dbContext.SaveChangesAsync();
 
             // retornar el estudiante DTO con los datos actualizados (updatedEstudianteDto)
-            var updatedEstudianteDto = new EstudianteDTO();
+            var updatedEstudianteDto = est.ToDTO();
             return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
         }
 
