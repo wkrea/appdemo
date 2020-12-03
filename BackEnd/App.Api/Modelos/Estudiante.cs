@@ -10,6 +10,7 @@
         /// https://henriquesd.medium.com/entity-framework-core-relationships-with-fluent-api-8f741c57b881
         /// </summary>
         public int CursoId { get; set; }
-        public virtual Curso Curso { get; set; }
+        public curso curso { get; set; }
+
     }
 }

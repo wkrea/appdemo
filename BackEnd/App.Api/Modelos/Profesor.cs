@@ -12,8 +12,7 @@ namespace App.Api.Modelos
         /// https://henriquesd.medium.com/entity-framework-core-relationships-with-fluent-api-8f741c57b881
         /// </summary>
         public int EscuelaId { get; set; }
-        public virtual Escuela Escuela { get; set; }
-
-        public virtual ICollection<Curso> Cursos { get; set; }
+        public Escuela Escuela { get; set; }
+        public ICollection<curso> cursos { get; set; } 
     }
 }
