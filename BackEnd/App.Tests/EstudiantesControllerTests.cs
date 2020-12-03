@@ -153,7 +153,7 @@ namespace App.Tests
         }
 
         // [Fact]
-        [Fact(Skip="x")]
+        [Fact]
         public async Task CreateEstudiante_ReturnsSuccessNewEstudianteAndLocationHeader()
         {
             // Arrange
@@ -196,7 +196,7 @@ namespace App.Tests
             }
         }
 
-        [Theory(Skip="x")]
+        [Theory]
         [InlineData(1, "John Duarte", 1, HttpStatusCode.Conflict)]  // Id already exists
         [InlineData(3, null, 1, HttpStatusCode.BadRequest)]      // missing (null) Name
         [InlineData(3, "", 1, HttpStatusCode.BadRequest)]        // missing (empty) Name
@@ -222,7 +222,7 @@ namespace App.Tests
         }
 
         // [Fact]
-        [Fact(Skip="x")]
+        [Fact]
         public async Task UpdateEstudiante_ReturnsSuccess()
         {
             // Arrange
@@ -243,7 +243,7 @@ namespace App.Tests
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
 
-        [Theory(Skip="x")]
+        [Theory]
         [InlineData(2, 999, "Juan Sandoval", 1, HttpStatusCode.BadRequest)] // url and dto Id's don't match
         [InlineData(2, 2, null,  1, HttpStatusCode.BadRequest)]           // missing (null) Name
         [InlineData(2, 2, "",  1, HttpStatusCode.BadRequest)]             // missing (empty) Name
@@ -271,7 +271,7 @@ namespace App.Tests
         }
 
         // [Fact]
-        [Fact(Skip="x")]
+        [Fact]
         public async Task DeleteEstudiante_ReturnsSuccessAndEstudiante()
         {
             // Arrange
@@ -304,7 +304,7 @@ namespace App.Tests
         }
 
         // [Fact]
-        [Fact(Skip="x")]
+        [Fact]
         public async Task DeleteEstudiante_ReturnsNotFound()
         {
             // Arrange
