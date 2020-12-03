@@ -111,12 +111,14 @@ namespace App.Api.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el id del estudiante corresponda al de un estudiante de la base -> BadRequest
-            if( EstudianteDto.Id == default(int) || id == default(int) ) {
-                return BadRequest("Por favor ingrese un identificador"); 
+            if (EstudianteDto.Id != id){
+                return BadRequest();
             }
+
             var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
 
             if (Estudiante == null){ return NotFound("El estudiante no se encuentra registrado");}
+            
             // verificar que el campo nombre no venga nulo -> BadRequest
             if (String.IsNullOrEmpty(EstudianteDto.Nombre)){ return BadRequest();}
 
@@ -127,7 +129,21 @@ namespace App.Api.Controllers
             // exista en la base, de lo contrario manterner el mismo curso en el que esté matriculado
             // Si no se encuentra que el estudiante este en un curso, retornar NotFound
 
+            if(await _dbContext.Cursos.FirstOrDefaultAsync(c => c.Id == EstudianteDto.CursoId) == null){
+                Curso curso = await _dbContext.Cursos.FirstOrDefaultAsync( c => c.Id == Estudiante.Id);
+                if(curso == null) 
+                { 
+                    return NotFound();
+                }
+                else 
+                { 
+                    var est = Estudiante.ToDTO();
+                    Estudiante.Update (est, curso);
+                    return NotFound();
+                } 
+            }
             // Actualizar el estudiante, recuerden que existe un método Update en Extensions
+            Estudiante.Update(EstudianteDto,await _dbContext.Cursos.FirstOrDefaultAsync(cur => cur.Id == EstudianteDto.CursoId));
 
             // Guardar los cambios en la base
             await _dbContext.SaveChangesAsync();
