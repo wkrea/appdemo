@@ -13,6 +13,6 @@ namespace App.Api.Modelos
 
         public string Departamento { get; set; }
 
-        public ICollection<Profesor> Profesores { get; set; }
+        public virtual ICollection<Profesor> Profesores { get; set; }
     }
 }
