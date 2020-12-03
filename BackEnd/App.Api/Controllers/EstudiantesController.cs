@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,6 @@ namespace App.Api.Controllers
     [ApiController]
     public class EstudiantesController : ControllerBase
     {
-
         private readonly UdiDbContext _dbContext;
         public EstudiantesController(UdiDbContext dbContext)
         {
@@ -49,23 +49,39 @@ namespace App.Api.Controllers
         public async Task<ActionResult<EstudianteDTO>> Create([FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el campo nombre no venga nulo -> BadRequest
+            if(String.IsNullOrEmpty(EstudianteDto.Nombre)){ return BadRequest();}
 
             //verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
+            var Curso = await _dbContext.Cursos.FirstOrDefaultAsync(c=>c.Id==EstudianteDto.CursoId);
 
+            if (Curso == null){ return NotFound("El curso no existe");}
+                
             // verificar que el estudiante no exista en la base
+            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==EstudianteDto.Id);
             // si existe, retortar conflicto
+            if (Estudiante != null){ return Conflict("El estudiante ya existe");}
 
             // convertir los datos de DTO a Model
+            var nEstudiante = new Estudiante{
+                Id = EstudianteDto.Id,
+                Nombre = EstudianteDto.Nombre,
+                CursoId = EstudianteDto.CursoId,
+            };
             // agregar el estudiante a la base de datos
+            _dbContext.Estudiantes.Add(nEstudiante);
             // guardar los cambios
             await _dbContext.SaveChangesAsync();
 
             // retornar el estudiante DTO con los datos actualizados (updatedEstudianteDto)
-            var updatedEstudianteDto = new EstudianteDTO();
+            //var updatedEstudianteDto = Estudiante.ToDTO();
+            //CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
+            var estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==EstudianteDto.Id);
 
-            await _dbContext.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);;
+            if (estudiante == null)
+                return NotFound();
+
+            return Ok(estudiante.ToDTO());
         }
 
         
@@ -76,12 +92,16 @@ namespace App.Api.Controllers
         {
             // verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
+            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
+
+            if (Estudiante == null){return NotFound();}
 
             // eliminar el estudiante de la base de datos
+            _dbContext.Estudiantes.Remove(Estudiante);
             await _dbContext.SaveChangesAsync();
 
             // retornar el estudiante DTO que se eliminó on un Ok()
-            return Ok();
+            return Ok(Estudiante.ToDTO());
         }
 
         [HttpPut("{id}")]
@@ -91,7 +111,14 @@ namespace App.Api.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el id del estudiante corresponda al de un estudiante de la base -> BadRequest
+            if( EstudianteDto.Id == default(int) || id == default(int) ) {
+                return BadRequest("Por favor ingrese un identificador"); 
+            }
+            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
+
+            if (Estudiante == null){ return NotFound("El estudiante no se encuentra registrado");}
             // verificar que el campo nombre no venga nulo -> BadRequest
+            if (String.IsNullOrEmpty(EstudianteDto.Nombre)){ return BadRequest();}
 
             // verificar que el estudiante que quiere modificarse, exista
             // si no existe, retornar NotFound
