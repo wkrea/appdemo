@@ -64,6 +64,9 @@ namespace App.Api.Controllers
         public async Task<ActionResult<EstudianteDTO>> Create([FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el campo nombre no venga nulo -> BadRequest
+            var verificarnulo = await _dbContext.Cursos.FirstOrDefaultAsync(c=> c.Id==EstudianteDto.CursoId);
+            if (verificarnulo==null)
+            return NotFound();
 
             //verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
