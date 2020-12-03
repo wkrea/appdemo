@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using App.Api.Controllers.DTOs;
-using App.Api.Modelos;
+using App.Api.Model;
 
+// linea mal intencionada
 namespace App.Api.Controllers
 {
     [Route("[controller]")]
