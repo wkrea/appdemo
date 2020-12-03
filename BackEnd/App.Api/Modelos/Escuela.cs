@@ -9,6 +9,10 @@ namespace App.Api.Modelos
         public string Ciudad { get; set; }
         public string Departamento { get; set; }
 
+<<<<<<< HEAD
         public ICollection<Profesor> Profesores { get; set; }
+=======
+        public virtual ICollection<Profesor> Profesores { get; set; }
+>>>>>>> main
     }
 }

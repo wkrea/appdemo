@@ -16,8 +16,32 @@ namespace App.Api
     public class Startup
     {
         public Startup(IConfiguration configuration)
+<<<<<<< HEAD
         {
             Configuration = configuration;
+=======
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.WriteIndented = true;
+            });
+            services.AddHealthChecks();
+
+            services.AddDbContext<UdiDbContext>(builder =>
+                builder.UseInMemoryDatabase("UdiDb-Memory").UseLazyLoadingProxies()
+                , ServiceLifetime.Singleton);
+
+>>>>>>> main
         }
 
         public IConfiguration Configuration { get; }

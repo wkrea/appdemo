@@ -31,6 +31,10 @@ namespace App.Tests
                 // This fetches the same single lifetime instantiation used by Controller classes
                 //_dbContext = factory.Services.GetRequiredService<UdiDbContext>();
                 _dbContext =  factory.Services.GetService<UdiDbContext>();
+<<<<<<< HEAD
+=======
+                _dbContext.Database.EnsureDeleted();
+>>>>>>> main
 
                 // Seed in-memory database with some data needed for tests
                 var Escuela = new Escuela
@@ -91,6 +95,10 @@ namespace App.Tests
             _factory = factory;
         }
 
+<<<<<<< HEAD
+=======
+        // [Fact]
+>>>>>>> main
         [Fact]
         public async Task GetEstudiante_ReturnsSuccessAndEstudiante()
         {
@@ -114,6 +122,10 @@ namespace App.Tests
             Assert.Equal(1, responseEstudiante.EscuelaId);
         }
 
+<<<<<<< HEAD
+=======
+        // [Fact]
+>>>>>>> main
         [Fact]
         public async Task GetEstudiante_ReturnsNotFound()
         {
@@ -127,6 +139,10 @@ namespace App.Tests
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
+<<<<<<< HEAD
+=======
+        // [Fact]
+>>>>>>> main
         [Fact]
         public async Task GetAllEstudiantes_ReturnsSuccessAndEstudiantes()
         {
@@ -148,7 +164,12 @@ namespace App.Tests
             Assert.Contains(responseEstudiantes, Estudiante => Estudiante.Id == 2);
         }
 
+<<<<<<< HEAD
         [Fact(Skip = "Prueba omitida por el momento")]
+=======
+        // [Fact]
+        [Fact]
+>>>>>>> main
         public async Task CreateEstudiante_ReturnsSuccessNewEstudianteAndLocationHeader()
         {
             // Arrange
@@ -159,7 +180,11 @@ namespace App.Tests
                 Nombre = "John Duarte",
                 CursoId = 1
             };
+<<<<<<< HEAD
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+=======
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
+>>>>>>> main
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             try
@@ -191,7 +216,11 @@ namespace App.Tests
             }
         }
 
+<<<<<<< HEAD
         [Theory(Skip = "Prueba omitida por el momento")]
+=======
+        [Theory]
+>>>>>>> main
         [InlineData(1, "John Duarte", 1, HttpStatusCode.Conflict)]  // Id already exists
         [InlineData(3, null, 1, HttpStatusCode.BadRequest)]      // missing (null) Name
         [InlineData(3, "", 1, HttpStatusCode.BadRequest)]        // missing (empty) Name
@@ -206,7 +235,11 @@ namespace App.Tests
                 Nombre = name,
                 CursoId = CursoId
             };
+<<<<<<< HEAD
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+=======
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
+>>>>>>> main
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             // Act
@@ -216,7 +249,12 @@ namespace App.Tests
             Assert.Equal(expectedStatusCode, response.StatusCode);
         }
 
+<<<<<<< HEAD
         [Fact(Skip = "Prueba omitida por el momento")]
+=======
+        // [Fact]
+        [Fact]
+>>>>>>> main
         public async Task UpdateEstudiante_ReturnsSuccess()
         {
             // Arrange
@@ -227,7 +265,11 @@ namespace App.Tests
                 Nombre = "Juan Sandoval",
                 CursoId = 1
             };
+<<<<<<< HEAD
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+=======
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
+>>>>>>> main
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             // Act
@@ -237,7 +279,11 @@ namespace App.Tests
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
 
+<<<<<<< HEAD
         [Theory(Skip = "Prueba omitida por el momento")]
+=======
+        [Theory]
+>>>>>>> main
         [InlineData(2, 999, "Juan Sandoval", 1, HttpStatusCode.BadRequest)] // url and dto Id's don't match
         [InlineData(2, 2, null,  1, HttpStatusCode.BadRequest)]           // missing (null) Name
         [InlineData(2, 2, "",  1, HttpStatusCode.BadRequest)]             // missing (empty) Name
@@ -253,7 +299,11 @@ namespace App.Tests
                 Nombre = name,
                 CursoId = CursoId
             };
+<<<<<<< HEAD
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto, 
+=======
+            var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
+>>>>>>> main
                 new JsonSerializerOptions{IgnoreNullValues = true}), Encoding.UTF8, "application/json");
 
             // Act
@@ -264,7 +314,12 @@ namespace App.Tests
 
         }
 
+<<<<<<< HEAD
         [Fact(Skip = "Prueba omitida por el momento")]
+=======
+        // [Fact]
+        [Fact]
+>>>>>>> main
         public async Task DeleteEstudiante_ReturnsSuccessAndEstudiante()
         {
             // Arrange
@@ -296,7 +351,12 @@ namespace App.Tests
             Assert.Equal(Estudiante.Curso.Profesor.Escuela.Id, responseEstudiante.EscuelaId);
         }
 
+<<<<<<< HEAD
         [Fact(Skip = "Prueba omitida por el momento")]
+=======
+        // [Fact]
+        [Fact]
+>>>>>>> main
         public async Task DeleteEstudiante_ReturnsNotFound()
         {
             // Arrange

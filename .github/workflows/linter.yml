@@ -20,7 +20,10 @@ on:
   #     - main
 
   pull_request:
+<<<<<<< HEAD
     # branches: [ main, CICD, wtests ]
+=======
+>>>>>>> main
       branches: 
         - main
         - main_tests
