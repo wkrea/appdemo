@@ -129,7 +129,7 @@ namespace App.Api.Controllers
             if(await context.obtenerCurso(EstudianteDto.CursoId) == null){
                 Curso curso = await context.obtenerCurso(Estudiante.CursoId);
                 if(curso == null){
-                    return BadRequest();
+                    return NotFound();
                 }else{
                     var DtoANT = Estudiante.ToDTO();
                     Estudiante.Update(DtoANT, curso);
@@ -137,6 +137,7 @@ namespace App.Api.Controllers
                 }
             }
             Estudiante.Update(EstudianteDto, await context.obtenerCurso(EstudianteDto.CursoId));
+            await context.editarEstudiante();
             return NoContent();
         } 
     }
