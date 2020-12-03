@@ -49,7 +49,7 @@ namespace App.Api.Repositorios
             await _db.SaveChangesAsync();
         } 
 
-        public async Task eliminarEstudiante(int id, Estudiante estudiante)
+        public async Task eliminarEstudiante(Estudiante estudiante)
         {
             _db.Estudiantes.Remove(estudiante);
             await _db.SaveChangesAsync();

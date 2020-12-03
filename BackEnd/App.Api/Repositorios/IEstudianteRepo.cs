@@ -26,6 +26,6 @@ namespace App.Api.Repositorios
         Task editarEstudiante();
 
         //Delete estudiante
-        Task eliminarEstudiante(int id, Estudiante estudiante); 
+        Task eliminarEstudiante(Estudiante estudiante); 
     }
 }
