@@ -35,9 +35,12 @@ La cobertura de código es una medida que nos indica el porcentaje de código va
 
 El Quality Gate es la función que utiliza SonarQube para asegurar el cumplimiento de la Política de Calidad en tu organización.
 
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=alert_status)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) 
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=bugs)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) 
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=code_smells)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=sqale_index)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=alert_status)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=bugs)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=code_smells)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=wkrea_appdemo2&metric=sqale_index)](https://sonarcloud.io/dashboard?id=wkrea_appdemo2)
 
 ### Título
 
