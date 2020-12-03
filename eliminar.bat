@@ -1,1 +1,0 @@
-DEL /S /Q ".\BackEnd\*.puml"
