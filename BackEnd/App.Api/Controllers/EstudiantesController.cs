@@ -91,14 +91,17 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Delete(int id)
         {
-            // verificar que el curso que quiere matricularse el estudiante, exista
-            // si no existe, retornar NotFound
 
-            // eliminar el estudiante de la base de datos
+            // si no existe, retornar NotFound
+            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
+
+            if (Estudiante == null)
+                return NotFound();
+
+            _dbContext.Estudiantes.Remove(Estudiante);
             await _dbContext.SaveChangesAsync();
 
-            // retornar el estudiante DTO que se eliminó on un Ok()
-            return Ok();
+            return Ok(Estudiante.ToDTO());
         }
 
         /// <summary>
