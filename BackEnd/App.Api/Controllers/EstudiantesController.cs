@@ -93,15 +93,15 @@ namespace App.Api.Controllers
         {
 
             // si no existe, retornar NotFound
-            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
+            var DeleteEstudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
 
-            if (Estudiante == null)
+            if (DeleteEstudiante == null)
                 return NotFound();
 
-            _dbContext.Estudiantes.Remove(Estudiante);
+            _dbContext.Estudiantes.Remove(DeleteEstudiante);
             await _dbContext.SaveChangesAsync();
 
-            return Ok(Estudiante.ToDTO());
+            return Ok(DeleteEstudiante.ToDTO());
         }
 
         /// <summary>
