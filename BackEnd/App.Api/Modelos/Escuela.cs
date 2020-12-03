@@ -3,15 +3,15 @@ namespace App.api.Modelos
 {
         public class Escuela
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         // [required]
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
         // [required]
-         public string ciudad{ get; set; }
+         public string Ciudad{ get; set; }
         // [required]
-         public string departamento { get; set; }
+         public string Departamento { get; set; }
         // [required]
-        public ICollection<Profesor> Profesores  { get; set; }
+        public virtual ICollection<Profesor> Profesores  { get; set; }
         
     }
 }

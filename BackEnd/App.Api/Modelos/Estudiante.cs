@@ -2,14 +2,14 @@ namespace App.api.Modelos
 {
         public class Estudiante
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         // [required]
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
         // [required]
-        public int cursoId { get; set; }
+        public int CursoId { get; set; }
         // [required]
      
-      public  Curso  Curso {get ;set; }
+      public  virtual Curso  Curso {get ;set; }
 
         
     }
