@@ -84,7 +84,8 @@ namespace App.Api.Controllers
             await context.crearEstudiante(estu);
 
             // retornar el estudiante DTO con los datos actualizados (updatedEstudianteDto)
-            var updatedEstudianteDto = new EstudianteDTO();
+           // var updatedEstudianteDto = new EstudianteDTO();
+            var updatedEstudianteDto = estu.ToDTO();
             return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
         }
 
