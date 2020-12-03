@@ -1,6 +1,26 @@
 ---
   name: .NET Core
   on:
+    push:
+      branches:
+        - main
+        - CICD
+        - wtests
+        - B_warevalo
+        - B_acelas
+        - B_cmalaver
+        - B_dmartinez
+        - B_gcastro
+        - B_jrangel
+        - B_jrobles
+        - B_jvalencia
+        - B_macosta
+        - A_acelis
+        - A_dsuarez
+        - A_jcaballero
+        - 8A_jcaballero
+        - A_requena
+
     pull_request:
       branches: 
         - main
@@ -14,12 +34,12 @@
         - B_jrangel
         - B_jrobles
         - B_jvalencia
-        - B_jvillamizar
-        - B_kvega
         - B_macosta
         - A_acelis
         - A_dsuarez
         - A_jcaballero
+        - 8A_jcaballero
+        - A_requena
         
   jobs:
     build:
