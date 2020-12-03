@@ -63,8 +63,28 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<EstudianteDTO>> Crear([FromBody] EstudianteDTO EstudianteDto)
         {
-            var updatedEstudianteDto = new EstudianteDTO();
-            return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
+            
+            if(String.IsNullOrEmpty(EstudianteDto.Nombre))
+            {
+                return BadRequest();
+            }
+                        
+            if(await _dbContext.Estudiantes.FindAsync(EstudianteDto.Id) != null)
+            {                
+                return Conflict();
+            }
+
+            if(await _dbContext.Cursos.FindAsync(EstudianteDto.CursoId) == null)
+            {
+                return NotFound();
+            }
+
+            Curso actual = await _dbContext.Cursos.FindAsync(EstudianteDto.CursoId);
+            Estudiante nuevo = EstudianteDto.ToModel(actual);
+            await _dbContext.Estudiantes.AddAsync(nuevo);
+            await _dbContext.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, nuevo.ToDTO());
+
         }
 
         /// <summary>
@@ -77,7 +97,13 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Eliminar(int id)
         {
-            return Ok();
+            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+            if(Estudiante == null){
+                return NotFound();
+            }else{
+                _dbContext.Estudiantes.Remove(Estudiante);
+                return Ok(Estudiante.ToDTO());
+            }
         }
 
         /// <summary>
@@ -92,6 +118,22 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Editar(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
+            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+
+            if(String.IsNullOrEmpty(EstudianteDto.Nombre)){
+                return BadRequest();
+            }
+
+            if(Estudiante == null)
+            {
+                return NotFound();
+            }
+
+            if(await _dbContext.Cursos.FindAsync(EstudianteDto.CursoId) == null)
+            {
+                return NotFound();
+            }
+
             return NoContent();
         }
     }
