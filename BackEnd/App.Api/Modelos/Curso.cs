@@ -16,4 +16,5 @@ namespace App.Api.Modelos
 
         public virtual ICollection<Estudiante> Estudiantes { get; set; }
     }
+    
 }

@@ -82,7 +82,7 @@ namespace App.Api.Modelos
             );
             
             modelBuilder.Entity<Estudiante>().HasData(
-                new Estudiante(){ Id = 1, Nombre = "Juan Camilo Valencia Silva", CursoId = 1 },
+                new Estudiante(){ Id = 1, Nombre = "Gabriel Alexander", CursoId = 1 },
                 new Estudiante(){ Id = 2, Nombre = "Laura  Calderón", CursoId = 1},
                 new Estudiante(){ Id = 3, Nombre = "Dennis Suárez" , CursoId = 2},
                 new Estudiante(){ Id = 4, Nombre = "Maria Calderón", CursoId = 3},
