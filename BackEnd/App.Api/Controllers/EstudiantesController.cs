@@ -72,21 +72,22 @@ namespace App.Api.Controllers
             
             //verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
-            
-            if(_dbContext.Cursos.FirstOrDefaultAsync(cur => cur.Id == EstudianteDto.CursoId) == null){
+            var cur =  await _dbContext.Cursos.FirstOrDefaultAsync(cur => cur.Id == EstudianteDto.CursoId);
+            if(cur == null){
                 return NotFound();
             }
+
             // verificar que el estudiante no exista en la base
             // si existe, retortar conflicto
-            if (_dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id == EstudianteDto.Id)!= null) {
-                return Conflict();
+            var estu = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id == EstudianteDto.Id);
+              if (estu != null){
+            return Conflict();
             }
 
             // convertir los datos de DTO a Model
-            Curso cur = _dbContext.Cursos.FirstOrDefault(cur => cur.Id == EstudianteDto.CursoId);
             //Estudiante est = EstudianteExtensions.ToModel(EstudianteDto,cur);
             Estudiante est = EstudianteDto.ToModel (cur);
-
+            
             // agregar el estudiante a la base de datos
             _dbContext.Estudiantes.Add(est);
             
@@ -138,17 +139,18 @@ namespace App.Api.Controllers
         {
             // verificar que el id del estudiante corresponda al de un estudiante de la base -> BadRequest
             if(EstudianteDto.Id == id){
-                BadRequest();
+                return BadRequest();
             }
+          
             // verificar que el campo nombre no venga nulo -> BadRequest
             if (EstudianteDto.Nombre == null) {
-                BadRequest(); 
+                return BadRequest(); 
             }
             // verificar que el estudiante que quiere modificarse, exista
             // si no existe, retornar NotFound
             var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
             if (Estudiante == null) {
-            NotFound();  
+                return NotFound();  
             }
             // verificar que el curso id, que viene en el DTO para modificar matricula (actualizar)
             // exista en la base, de lo contrario manterner el mismo curso en el que esté matriculado
