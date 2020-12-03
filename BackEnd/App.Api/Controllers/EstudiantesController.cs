@@ -93,12 +93,16 @@ namespace App.Api.Controllers
         {
             // verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
+            var Estudiante = await _dbContext.Estudiantes.FindAsync(id);
+            if (Estudiante == null)
+                return NotFound();
 
             // eliminar el estudiante de la base de datos
-            await _dbContext.SaveChangesAsync();
+            _dbContext.Estudiantes.Remove(Estudiante);
 
+            await _dbContext.SaveChangesAsync();
             // retornar el estudiante DTO que se eliminó on un Ok()
-            return Ok();
+            return Ok(Estudiante.ToDTO());
         }
 
         /// <summary>
