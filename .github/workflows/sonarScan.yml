@@ -17,37 +17,26 @@
   on:
     push:
       branches:
-        - main
-        - CICD
-        - wtests
-        - B_warevalo
-        - B_acelas
-        - B_cmalaver
-        - B_dmartinez
-        - B_gcastro
-        - B_jrangel
-        - B_jrobles
-        - B_jvalencia
-        - B_macosta
-        - A_acelis
-        - A_dsuarez
-        - A_jcaballero
-        - 8A_jcaballero
-        - A_requena
+        - "main"
 
     pull_request:
       branches: 
         - main
+        - main_tests
         - CICD
         - wtests
         - B_warevalo
+        - 8A_warevalo
         - B_acelas
         - B_cmalaver
         - B_dmartinez
+        - B_dmoreno
         - B_gcastro
         - B_jrangel
         - B_jrobles
         - B_jvalencia
+        - B_jvillamizar
+        - B_kvega
         - B_macosta
         - A_acelis
         - A_dsuarez
@@ -88,28 +77,13 @@
             dotnet restore
             dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov
 
-        - name: Build and analyze
+        - name: scanner begin
+          run: dotnet sonarscanner begin /k:"${{ env.key }}" /n:"${{ env.name }}" /v:"${{ env.version }}" /o:"${{ env.organization }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml"
           env:
-            # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             key: "wkrea_appdemo2"
             name: "appdemo"
-            version: "1"
+            version: "1."
             organization: "wkrea"
-          run: |
-            dotnet sonarscanner begin /k:"${{ env.key }}" /n:"${{ env.name }}" /v:"${{ env.version }}" /o:"${{ env.organization }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ env.SONAR_TOKEN }}" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml"
-          # dotnet-sonarscanner begin /k:"wkrea_appdemo2" /o:"wkrea" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          # <your clean build command>
-          # dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
-
-        # - name: scanner begin
-        #   run: dotnet sonarscanner begin /k:"${{ env.key }}" /n:"${{ env.name }}" /v:"${{ env.version }}" /o:"${{ env.organization }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml"
-        #   env:
-        #     key: "wkrea_appdemo2"
-        #     name: "appdemo"
-        #     version: "1"
-        #     organization: "wkrea"
 
         # - name: scanner build
         #   run: |
@@ -156,4 +130,3 @@
         #       -Dsonar.verbose=false
         #       -Dsonar.sources=./BackEnd/App.Api/
         #       -Dsonar.python.coverage.reportPaths=coverage.xml
-
