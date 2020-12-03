@@ -130,11 +130,15 @@ namespace App.Api.Controllers
                 return NotFound();
             }
 
-            if(await _dbContext.Cursos.FindAsync(EstudianteDto.CursoId) == null)
+            Curso actual = await _dbContext.Cursos.FindAsync(EstudianteDto.CursoId);
+
+            if(actual == null)
             {
                 return NotFound();
             }
 
+            Estudiante.Update(EstudianteDto, actual);
+            _dbContext.SaveChanges();
             return NoContent();
         }
     }
