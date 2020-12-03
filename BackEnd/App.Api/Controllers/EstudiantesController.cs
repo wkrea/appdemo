@@ -31,7 +31,6 @@ namespace App.Api.Controllers
         public async Task<ActionResult<List<EstudianteDTO>>> GetAll()
         {
             var Estudiantes = await context.obtenerEstudiantes();
-            // return Ok(Estudiantes);
             return Ok(Estudiantes.Select(s => s.ToDTO()));
         }
 
@@ -65,28 +64,18 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<EstudianteDTO>> Create([FromBody] EstudianteDTO EstudianteDto)
         {
-            // verificar que el campo nombre no venga nulo -> BadRequest
             if(String.IsNullOrEmpty(EstudianteDto.Nombre)){
                 return BadRequest();
             } 
-            //verificar que el curso que quiere matricularse el estudiante, exista
-            // si no existe, retornar NotFound
             Curso curso = await context.obtenerCurso(EstudianteDto.CursoId);
             if(curso == null){
                 return NotFound();
             }
-            // verificar que el estudiante no exista en la base
-            // si existe, retortar conflicto
             if(await context.obtenerEstudiante(EstudianteDto.Id) != null){
                return Conflict();
             }
-            // convertir los datos de DTO a Model
             Estudiante estu = EstudianteDto.ToModel(curso);
-            // agregar el estudiante a la base de datos
             await context.crearEstudiante(estu);
-
-            // retornar el estudiante DTO con los datos actualizados (updatedEstudianteDto)
-           // var updatedEstudianteDto = new EstudianteDTO();
             var updatedEstudianteDto = await context.obtenerEstudiante(estu.Id);
             if(updatedEstudianteDto == null){
                 return NotFound();
@@ -104,16 +93,12 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Delete(int id)
         {
-            // verificar que el curso que quiere matricularse el estudiante, exista
-            // si no existe, retornar NotFound
             var Estudiante = await context.obtenerEstudiante(id);
             if (Estudiante == null)
             {
                 return NotFound();
             }
-            // eliminar el estudiante de la base de datos
             await context.eliminarEstudiante(Estudiante);
-            // retornar el estudiante DTO que se eliminó on un Ok()
             return Ok(Estudiante.ToDTO());
         }
 
@@ -129,24 +114,17 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
-            // verificar que el id del estudiante corresponda al de un estudiante de la base -> BadRequest
             var Estudiante = await context.obtenerEstudiante(EstudianteDto.Id);
             if(EstudianteDto.Id != id){
                 return BadRequest();
             }
-            // verificar que el campo nombre no venga nulo -> BadRequest
             if(String.IsNullOrEmpty(EstudianteDto.Nombre)){
                 return BadRequest();
             } 
-            // verificar que el estudiante que quiere modificarse, exista
-            // si no existe, retornar NotFound
             if (Estudiante == null)
             {
                 return NotFound();
             }
-            // verificar que el curso id, que viene en el DTO para modificar matricula (actualizar)
-            // exista en la base, de lo contrario manterner el mismo curso en el que esté matriculado
-            // Si no se encuentra que el estudiante este en un curso, retornar NotFound
 
             if(await context.obtenerCurso(EstudianteDto.CursoId) == null){
                 Curso curso = await context.obtenerCurso(Estudiante.CursoId);
@@ -158,10 +136,8 @@ namespace App.Api.Controllers
                     return NotFound();
                 }
             }
-            // Actualizar el estudiante, recuerden que existe un método Update en Extensions
             Estudiante.Update(EstudianteDto, await context.obtenerCurso(EstudianteDto.CursoId));
             return NoContent();
-
         } 
     }
 }

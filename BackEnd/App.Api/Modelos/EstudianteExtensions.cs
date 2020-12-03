@@ -15,8 +15,6 @@ namespace App.Api.Modelos
         /// <returns></returns>
         public static Estudiante ToModel(this EstudianteDTO objEstudianteDto, Curso objCurso)
         {
-            // Información desde FrontEnd (Postman -> JSON), hacia la base de datos (Modelos/Estudiante.cs)
-            // crear un estudiante con los datos (Id, Nombre y Curso) que vienen en el objEstDTO
             if (objCurso.Id != objEstudianteDto.CursoId) throw new NotSupportedException();
             return new Estudiante
             {
@@ -33,8 +31,6 @@ namespace App.Api.Modelos
         /// <param name="objCurso">Instancia con datos provenientes desde FrontEnd</param>
         public static void Update(this Estudiante objEstudianteToUpdate, EstudianteDTO objEstudianteDto, Curso objCurso)
         {
-            // verificar que la entidad existe en la base
-            // actualizar los campos Nombre y Curso, sobre la instancia objEstUpdate
             if (objEstudianteDto.Id != objEstudianteToUpdate.Id) throw new NotSupportedException();
             objEstudianteToUpdate.Nombre = objEstudianteDto.Nombre;
             objEstudianteToUpdate.Curso = objCurso;
@@ -48,8 +44,6 @@ namespace App.Api.Modelos
         /// <returns></returns>
         public static EstudianteDTO ToDTO(this Estudiante objEstudiante)
         {
-            // retornar información adicional desde las relaciones existentes
-            // propiedades de navegación
             return new EstudianteDTO
             {
                 Id = objEstudiante.Id,

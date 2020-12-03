@@ -32,11 +32,6 @@ namespace App.Api.Repositorios
         {
             return await _db.Cursos.FirstOrDefaultAsync(c => c.Id == id);
         }
-        
-        public Curso obtenerCurs(int id)
-        {
-            return _db.Cursos.FirstOrDefault(c => c.Id == id);
-        }
 
         public async Task crearEstudiante(Estudiante estudiante)
         {
