@@ -12,7 +12,6 @@ namespace App.Api.Modelos
         public string Ciudad {get; set;}
         [Required]
         public string Departamento {get; set;}
-        public ICollection<Profesor> profesores {get; set;}
-
+        public virtual ICollection<Profesor> Profesores { get; set; }
     }
 }
