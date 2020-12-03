@@ -93,7 +93,7 @@
           env:
             key: "wkrea_appdemo2"
             name: "appdemo"
-            version: "1."
+            version: "1"
             organization: "wkrea"
 
         # - name: scanner build
