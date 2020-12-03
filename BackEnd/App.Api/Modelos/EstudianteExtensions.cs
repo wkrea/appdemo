@@ -1,11 +1,12 @@
 using System;
+using App.api.Modelos;
 using App.Api.Controllers.DTOs;
 
 namespace App.Api.Modelos
 {
     public static class EstudianteDTOExtensions
     {
-        
+
         public static void Update(this Estudiante EstudianteToUpdate, EstudianteDTO EstudianteDto, Curso curso)
         {
             if (EstudianteDto.Id != EstudianteToUpdate.Id) throw new NotSupportedException();
@@ -36,4 +37,5 @@ namespace App.Api.Modelos
             };
         }
     }
+
 }
