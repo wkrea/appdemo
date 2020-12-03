@@ -6,12 +6,12 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using App.Api.Controllers.DTOs;
-using App.Api.Modelos;
-using App.Api;
-using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using App.Api.Controllers.DTOs;
+using App.Api.Modelos;
+using Xunit;
+using App.Api;
 
 namespace App.Tests
 {

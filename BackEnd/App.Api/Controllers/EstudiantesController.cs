@@ -105,6 +105,7 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Delete(int id)
         {
+            
             // verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
         
