@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
-
 namespace App.Tests
 {
     // dotnet add ./BackEnd/App.Tests/App.Tests.csproj reference ./BackEnd/App.Api/App.Api.csproj

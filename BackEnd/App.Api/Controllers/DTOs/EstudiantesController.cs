@@ -73,8 +73,8 @@ namespace App.Api.Controllers
             
 
             // si no existe, retornar NotFound
-            var Curso = await _dbContext.Cursos.FirstOrDefaultAsync(c=>c.Id==EstudianteDto.CursoId);
-            if (Curso == null)
+            var VerificarCurso = await _dbContext.Cursos.FirstOrDefaultAsync(c=>c.Id==EstudianteDto.CursoId);
+            if (VerificarCurso == null)
                 return NotFound();
 
             // verificar que el estudiante no exista en la base
@@ -109,17 +109,17 @@ namespace App.Api.Controllers
         {
             // verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
-            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
+            var ConsultarEstudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
 
-            if (Estudiante == null)
+            if (ConsultarEstudiante == null)
                 return NotFound();
 
             // eliminar el estudiante de la base de datos
-            _dbContext.Estudiantes.Remove(Estudiante);
+            _dbContext.Estudiantes.Remove(ConsultarEstudiante);
             await _dbContext.SaveChangesAsync();
 
             // retornar el estudiante DTO que se eliminó on un Ok()
-            return Ok(Estudiante.ToDTO());
+            return Ok(ConsultarEstudiante.ToDTO());
         }
 
         /// <summary>
