@@ -61,12 +61,14 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<EstudianteDTO>> Crear([FromBody] EstudianteDTO EstudianteDto)
+        public async Task<ActionResult<EstudianteDTO>> Create([FromBody] EstudianteDTO EstudianteDto)
         {
+
+            
             var updatedEstudianteDto = new EstudianteDTO();
             return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
         }
-
+         
         /// <summary>
         /// DELETE /Estudiante/{id}
         /// </summary>
