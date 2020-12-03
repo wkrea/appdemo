@@ -20,30 +20,14 @@ on:
   #     - main
 
   pull_request:
-    # branches: [ main, CICD, wtests ]
-      branches: 
-        - main
-        - main_tests
-        - CICD
-        - wtests
-        - B_warevalo
-        - 8A_warevalo
-        - B_acelas
-        - B_cmalaver
-        - B_dmartinez
-        - B_dmoreno
-        - B_gcastro
-        - B_jrangel
-        - B_jrobles
-        - B_jvalencia
-        - B_jvillamizar
-        - B_kvega
-        - B_macosta
-        - A_acelis
-        - A_dsuarez
-        - A_jcaballero
-        - 8A_jcaballero
-        - A_requena
+    branches: 
+      - main
+      - CICD
+      - wtests
+      - 8A_warevalo
+      - 8A_jcaballero
+      - 8A_acelis
+      - 8A_dsuarez
 
 ###############
 # Set the Job #
