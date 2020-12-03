@@ -144,8 +144,8 @@ namespace App.Api.Controllers
 
             // verificar que el estudiante que quiere modificarse, exista
             // si no existe, retornar NotFound
-            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==EstudianteDto.Id);
-            if(Estudiante == null) 
+            var ActEstudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==EstudianteDto.Id);
+            if(ActEstudiante == null) 
             return NotFound();
 
             // verificar que el curso id, que viene en el DTO para modificar matricula (actualizar)
