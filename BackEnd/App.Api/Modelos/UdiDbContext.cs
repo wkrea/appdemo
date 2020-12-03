@@ -53,21 +53,26 @@ namespace App.Api.Modelos
                 est.Property(e => e.Nombre).IsRequired();
                 est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
+            Escuela escuela = new Escuela(){ Id = 1, Nombre = "Universidad de Investigación y Desarrollo", Ciudad = "Bucaramanga", Departamento = "Santander"};
+            Profesor profesor1 = new Profesor(){ Id=1, Nombre="William Javier Trigos Guevara", EscuelaId = 1, Escuela = escuela };
+            Profesor profesor2 = new Profesor(){ Id=2, Nombre="Alexandra Beltran", EscuelaId = 1, Escuela = escuela};
+            Curso curso1 = new Curso(){ Id = 1, Nombre = "6L", ProfesorId = 1, Profesor = profesor1};
+            Curso curso2 = new Curso(){ Id = 2, Nombre = "7L", ProfesorId = 2, Profesor = profesor2};
+            Estudiante estudiante1 = new Estudiante(){ Id = 1, Nombre = "Marly Alexandra Acosta Arenales", CursoId = 1, Curso = curso1};
+            Estudiante estudiante2 = new Estudiante(){ Id = 2, Nombre = "Estudiante Random", CursoId = 2, Curso = curso2};
 
-             builder.Entity<Curso>().HasData(
-                new Curso(){ Id = 1, Nombre = "6L", ProfesorId = 1},
-                new Curso(){ Id = 2, Nombre = "7L", ProfesorId = 2}
+
+            builder.Entity<Curso>().HasData(
+               curso1, curso2
             );
             builder.Entity<Escuela>().HasData(
-                new Escuela(){ Id = 1, Nombre = "Universidad de Investigación y Desarrollo", Ciudad = "Bucaramanga", Departamento = "Santander"}
+               escuela
             );
             builder.Entity<Profesor>().HasData(
-                new Profesor(){ Id=1, Nombre="William Javier Trigos Guevara", EscuelaId = 1 },
-                new Profesor(){ Id=2, Nombre="Alexandra Beltran", EscuelaId = 1 }
+                profesor1, profesor2
             );
             builder.Entity<Estudiante>().HasData(
-                new Estudiante(){ Id = 1, Nombre = "Marly Alexandra Acosta Arenales", CursoId = 1},
-                new Estudiante(){ Id = 2, Nombre = "Estudiante Random", CursoId = 2}
+                estudiante1, estudiante2
             );
         }
     }

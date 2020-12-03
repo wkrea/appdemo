@@ -20,30 +20,30 @@ namespace App.Api.Repositorios
 
         public async Task<Estudiante> obtenerEstudiante(int id)
         {
-            return await _db.estudiantes.FindAsync(id);
+            return await _db.Estudiantes.FindAsync(id);
         }
 
         public async Task<List<Estudiante>> obtenerEstudiantes()
         {
-            return await _db.estudiantes.ToListAsync();
+            return await _db.Estudiantes.ToListAsync();
         }
 
         public async Task crearEstudiante(Estudiante estudiante)
         {
-            _db.estudiantes.Add(estudiante);
+            _db.Estudiantes.Add(estudiante);
             await _db.SaveChangesAsync();
         }
 
         public async Task editarEstudiante(Estudiante estudiante)
         {
-            _db.estudiantes.Update(estudiante);
+            _db.Estudiantes.Update(estudiante);
             await _db.SaveChangesAsync();
         }
 
         public async Task eliminarEstudiante(int id)
         {
-            Estudiante estudiante = await _db.estudiantes.FindAsync(id);
-            _db.estudiantes.Remove(estudiante);
+            Estudiante estudiante = await _db.Estudiantes.FindAsync(id);
+            _db.Estudiantes.Remove(estudiante);
             await _db.SaveChangesAsync();
         }
     }
