@@ -26,7 +26,7 @@ namespace App.Api.Modelos
                 esc.Property(e => e.Nombre).IsRequired();
                 esc.Property(e => e.Ciudad).IsRequired();
                 esc.Property(e => e.Departamento).IsRequired();
-                esc.HasMany(e => e.profesores).WithOne(p => p.Escuela);
+                esc.HasMany(e => e.Profesores).WithOne(p => p.Escuela);
             });
 
             modelBuilder.Entity<Profesor>(p =>
@@ -34,8 +34,8 @@ namespace App.Api.Modelos
                 p.HasKey(p => p.Id);
                 p.Property(p => p.Id).ValueGeneratedNever();
                 p.Property(p => p.Nombre).IsRequired();
-                p.HasOne(p => p.Escuela).WithMany(est => est.profesores);
-                p.HasMany(p => p.Cursos).WithOne(c => c.profesor);
+                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores);
+                p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
             });
 
             modelBuilder.Entity<Curso>(cur =>
@@ -43,7 +43,7 @@ namespace App.Api.Modelos
                 cur.HasKey(c => c.Id);
                 cur.Property(c => c.Id).ValueGeneratedNever();
                 cur.Property(c => c.Nombre).IsRequired();
-                cur.HasOne(c => c.profesor).WithMany(p => p.Cursos);
+                cur.HasOne(c => c.Profesor).WithMany(p => p.Cursos);
                 cur.HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
             });
 

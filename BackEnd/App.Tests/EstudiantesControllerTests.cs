@@ -110,7 +110,7 @@ namespace App.Tests
                 new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
             Assert.NotNull(responseEstudiante);
             Assert.Equal(1, responseEstudiante.Id);
-            Assert.Equal("Alix Villalba", responseEstudiante.Nombre);
+            Assert.Equal("Alix Villalba", responseEstudiante.nombre);
             Assert.Equal(1, responseEstudiante.CursoId);
             Assert.Equal(1, responseEstudiante.ProfesorId);
             Assert.Equal(1, responseEstudiante.EscuelaId);
@@ -161,7 +161,7 @@ namespace App.Tests
             var EstudianteDto = new EstudianteDTO
             {
                 Id = 3,
-                Nombre = "John Duarte",
+                nombre = "John Duarte",
                 CursoId = 1
             };
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
@@ -180,7 +180,7 @@ namespace App.Tests
                     new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
                 Assert.NotNull(responseEstudiante);
                 Assert.Equal(EstudianteDto.Id, responseEstudiante.Id);
-                Assert.Equal(EstudianteDto.Nombre, responseEstudiante.Nombre);
+                Assert.Equal(EstudianteDto.nombre, responseEstudiante.nombre);
                 Assert.Equal(EstudianteDto.CursoId, responseEstudiante.CursoId);
                 Assert.Equal(1, responseEstudiante.ProfesorId);
                 Assert.Equal(1, responseEstudiante.EscuelaId);
@@ -208,7 +208,7 @@ namespace App.Tests
             var EstudianteDto = new EstudianteDTO
             {
                 Id = id,
-                Nombre = name,
+                nombre = name,
                 CursoId = CursoId
             };
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
@@ -230,7 +230,7 @@ namespace App.Tests
             var EstudianteDto = new EstudianteDTO
             {
                 Id = 2,
-                Nombre = "Juan Sandoval",
+                nombre = "Juan Sandoval",
                 CursoId = 1
             };
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
@@ -256,7 +256,7 @@ namespace App.Tests
             var EstudianteDto = new EstudianteDTO
             {
                 Id = dtoId,
-                Nombre = name,
+                nombre = name,
                 CursoId = CursoId
             };
             var content = new StringContent(JsonSerializer.Serialize(EstudianteDto,
@@ -297,7 +297,7 @@ namespace App.Tests
                 new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
             Assert.NotNull(responseEstudiante);
             Assert.Equal(Estudiante.Id, responseEstudiante.Id);
-            Assert.Equal(Estudiante.Nombre, responseEstudiante.Nombre);
+            Assert.Equal(Estudiante.Nombre, responseEstudiante.nombre);
             Assert.Equal(Estudiante.Curso.Id, responseEstudiante.CursoId);
             Assert.Equal(Estudiante.Curso.Profesor.Id, responseEstudiante.ProfesorId);
             Assert.Equal(Estudiante.Curso.Profesor.Escuela.Id, responseEstudiante.EscuelaId);
