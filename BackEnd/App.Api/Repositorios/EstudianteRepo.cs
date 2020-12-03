@@ -20,12 +20,22 @@ namespace App.Api.Repositorios
 
         public async Task<Estudiante> obtenerEstudiante(int id)
         {
-            return await _db.Estudiantes.FindAsync(id);
+            return await _db.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
+        } 
+
+        public async Task<IEnumerable<Estudiante>> obtenerEstudiantes()
+        {
+            return await _db.Estudiantes.ToArrayAsync();
         }
 
-        public async Task<List<Estudiante>> obtenerEstudiantes()
+        public async Task<Curso> obtenerCurso(int id)
         {
-            return await _db.Estudiantes.ToListAsync();
+            return await _db.Cursos.FirstOrDefaultAsync(c => c.Id == id);
+        }
+        
+        public Curso obtenerCurs(int id)
+        {
+            return _db.Cursos.FirstOrDefault(c => c.Id == id);
         }
 
         public async Task crearEstudiante(Estudiante estudiante)
@@ -34,17 +44,15 @@ namespace App.Api.Repositorios
             await _db.SaveChangesAsync();
         }
 
-        public async Task editarEstudiante(Estudiante estudiante)
+        public async Task editarEstudiante()
         {
-            _db.Estudiantes.Update(estudiante);
             await _db.SaveChangesAsync();
-        }
+        } 
 
-        public async Task eliminarEstudiante(int id)
+        public async Task eliminarEstudiante(int id, Estudiante estudiante)
         {
-            Estudiante estudiante = await _db.Estudiantes.FindAsync(id);
             _db.Estudiantes.Remove(estudiante);
             await _db.SaveChangesAsync();
-        }
+        } 
     }
 }

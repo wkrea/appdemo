@@ -17,6 +17,7 @@ namespace App.Api.Modelos
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             base.OnModelCreating(builder);
 
             builder.Entity<Escuela>(esc =>
@@ -26,7 +27,7 @@ namespace App.Api.Modelos
                 esc.Property(e => e.Nombre).IsRequired();
                 esc.Property(e => e.Ciudad).IsRequired();
                 esc.Property(e => e.Departamento).IsRequired();
-                esc.HasMany(e => e.Profesores).WithOne(p => p.Escuela);
+                esc.HasMany(e => e.Profesores).WithOne(p => p.Escuela).IsRequired();
             });
 
             builder.Entity<Profesor>(p =>
@@ -34,8 +35,8 @@ namespace App.Api.Modelos
                 p.HasKey(p => p.Id);
                 p.Property(p => p.Id).ValueGeneratedNever();
                 p.Property(p => p.Nombre).IsRequired();
-                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores);
-                p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
+                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores).IsRequired();
+                p.HasMany(p => p.Cursos).WithOne(c => c.Profesor).IsRequired();
             });
 
             builder.Entity<Curso>(cur =>
@@ -43,8 +44,8 @@ namespace App.Api.Modelos
                 cur.HasKey(c => c.Id);
                 cur.Property(c => c.Id).ValueGeneratedNever();
                 cur.Property(c => c.Nombre).IsRequired();
-                cur.HasOne(c => c.Profesor).WithMany(p => p.Cursos);
-                cur.HasMany(c => c.Estudiantes).WithOne(est => est.Curso);
+                cur.HasOne(c => c.Profesor).WithMany(p => p.Cursos).IsRequired();
+                cur.HasMany(c => c.Estudiantes).WithOne(est => est.Curso).IsRequired();
             });
 
             builder.Entity<Estudiante>(est =>
@@ -52,11 +53,11 @@ namespace App.Api.Modelos
                 est.HasKey(e => e.Id);
                 est.Property(e => e.Id).ValueGeneratedNever();
                 est.Property(e => e.Nombre).IsRequired();
-                est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
+                est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes).IsRequired();
             });
             // Datos semilla
             
-            modelBuilder.Entity<Escuela>().HasData(
+            builder.Entity<Escuela>().HasData(
                 new Escuela(){ Id = 1, Nombre = "Universidad Pontificia Bolivariana", Ciudad = "Bucaramanga", Departamento = "Santander"},
                 new Escuela(){ Id = 2, Nombre = "Universidad de Santander", Ciudad = "Bucaramanga", Departamento = "Santander"},
                 new Escuela(){ Id = 3, Nombre = "Universidad de Investigación y Desarrollo", Ciudad = "Bucaramanga", Departamento = "Santander"},
@@ -64,7 +65,7 @@ namespace App.Api.Modelos
                 new Escuela(){ Id = 5, Nombre = "Universidad Nacional", Ciudad = "Bogotá", Departamento = "Cundinamarca"}         
             );
 
-            modelBuilder.Entity<Profesor>().HasData(
+            builder.Entity<Profesor>().HasData(
                 new Profesor(){ Id = 1, Nombre = "William Trigos", EscuelaId=3},
                 new Profesor(){ Id = 2, Nombre = "Martín Jaimes", EscuelaId=3},
                 new Profesor(){ Id = 3, Nombre = "Sully Gomez", EscuelaId=3},
@@ -72,7 +73,7 @@ namespace App.Api.Modelos
                 new Profesor(){ Id = 5, Nombre = "Elkin Plata", EscuelaId=3}
             ); 
 
-            modelBuilder.Entity<Curso>().HasData( 
+            builder.Entity<Curso>().HasData( 
                 new Curso(){ Id = 1, Nombre = "Servicios Web", ProfesorId=1 },
                 new Curso(){ Id = 2, Nombre = "Estadística y probabilidades" , ProfesorId=3 },
                 new Curso(){ Id = 3, Nombre = "Sistemas Operativos", ProfesorId=1 },
@@ -81,7 +82,7 @@ namespace App.Api.Modelos
                 new Curso(){ Id = 6, Nombre = "Metodología de la investigación" , ProfesorId=4 }
             );
             
-            modelBuilder.Entity<Estudiante>().HasData(
+            builder.Entity<Estudiante>().HasData(
                 new Estudiante(){ Id = 1, Nombre = "Juan Camilo Valencia Silva", CursoId = 1 },
                 new Estudiante(){ Id = 2, Nombre = "Laura  Calderón", CursoId = 1},
                 new Estudiante(){ Id = 3, Nombre = "Dennis Suárez" , CursoId = 2},

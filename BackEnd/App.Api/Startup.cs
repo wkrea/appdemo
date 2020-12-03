@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using App.Api.Repositorios;
 
 namespace App.Api
 {
@@ -38,6 +39,7 @@ namespace App.Api
                 builder.UseInMemoryDatabase("UdiDb-Memory").UseLazyLoadingProxies()
                 , ServiceLifetime.Singleton);
 
+            services.AddScoped<IEstudianteRepo, EstudianteRepo>();
             //SqlServer
             //services.AddDbContext<UdiDbContext>(options =>
             //    options.UseSqlServer(
