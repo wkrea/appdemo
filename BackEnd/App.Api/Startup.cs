@@ -42,12 +42,6 @@ namespace App.Api
                 builder.UseInMemoryDatabase("UdiDb-Memory").UseLazyLoadingProxies()
                 , ServiceLifetime.Singleton);
 
-            //SqlServer
-            //services.AddDbContext<UdiDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("UdiDb"))
-            //        , ServiceLifetime.Singleton
-            //    );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

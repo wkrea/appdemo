@@ -17,6 +17,7 @@ namespace App.Api.Modelos
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -56,8 +57,7 @@ namespace App.Api.Modelos
                 est.Property(e => e.Nombre).IsRequired();
                 est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
-
-                // Datos semilla
+            // Datos semilla
             
             modelBuilder.Entity<Escuela>().HasData(
                 new Escuela(){ Id = 1, Nombre = "Universidad Pontificia Bolivariana", Ciudad = "Bucaramanga", Departamento = "Santander"},
@@ -95,7 +95,7 @@ namespace App.Api.Modelos
                 new Estudiante(){ Id = 8, Nombre = "Pedro Pereira", CursoId = 6}
             );
         }
-        }
     }
+}
 
 
