@@ -1,28 +1,19 @@
-<<<<<<< HEAD
-﻿
 using Microsoft.EntityFrameworkCore;
-=======
-﻿using Microsoft.EntityFrameworkCore;
->>>>>>> main
 
 namespace App.Api.Modelos
 {
-    public class UdiDbContext : DbContext
-    {
-        public UdiDbContext(DbContextOptions<UdiDbContext> options) : base(options)
+    public class UdiDbContext : DbContext{
+
+        public UdiDbContext(DbContextOptions<UdiDbContext> opts) : base(opts)
         {
             Database.EnsureDeleted();
-            Database.EnsureCreated();
+            Database.EnsureCreated(); 
         }
-
-        public DbSet<Escuela> Escuelas { get; set; }
-        public DbSet<Profesor> Profesores { get; set; }
-        public DbSet<Curso> Cursos { get; set; }
-        public DbSet<Estudiante> Estudiantes { get; set; }
-<<<<<<< HEAD
-=======
+        public DbSet<Escuela> Escuelas {get;set;}
+        public DbSet<Profesor> Profesores {get;set;}
+        public DbSet<Curso> Cursos {get;set;}
+        public DbSet<Estudiante> Estudiantes {get;set;}
         
->>>>>>> main
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -47,11 +38,7 @@ namespace App.Api.Modelos
             });
 
             modelBuilder.Entity<Curso>(cur =>
-<<<<<<< HEAD
-        {
-=======
             {
->>>>>>> main
                 cur.HasKey(c => c.Id);
                 cur.Property(c => c.Id).ValueGeneratedNever();
                 cur.Property(c => c.Nombre).IsRequired();
@@ -66,8 +53,6 @@ namespace App.Api.Modelos
                 est.Property(e => e.Nombre).IsRequired();
                 est.HasOne(e => e.Curso).WithMany(c => c.Estudiantes);
             });
-<<<<<<< HEAD
-=======
             // Datos semilla
             
             modelBuilder.Entity<Escuela>().HasData(
@@ -105,7 +90,6 @@ namespace App.Api.Modelos
                 new Estudiante(){ Id = 7, Nombre = "Jhoan Villabona", CursoId = 1},
                 new Estudiante(){ Id = 8, Nombre = "Pedro Pereira", CursoId = 6}
             );
->>>>>>> main
         }
     }
 }

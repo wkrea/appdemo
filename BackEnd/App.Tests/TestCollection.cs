@@ -3,10 +3,7 @@ using Xunit;
 
 namespace App.Tests
 {
-<<<<<<< HEAD
-=======
     // dotnet add ./BackEnd/App.Tests/App.Tests.csproj reference ./BackEnd/App.Api/App.Api.csproj
->>>>>>> main
     [CollectionDefinition("Tests de Integración", DisableParallelization = true)]
     public class TestCollection : ICollectionFixture<WebApplicationFactory<App.Api.Startup>>
     {
