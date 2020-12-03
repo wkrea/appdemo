@@ -1,4 +1,7 @@
-﻿namespace App.Api.Controllers.DTOs
+﻿using System;
+using App.Api.Modelos;
+
+namespace App.Api.Controllers.DTOs
 {
     public class EstudianteDTO
     {
@@ -7,5 +10,10 @@
         public int CursoId { get; set; }
         public int ProfesorId { get; set; }
         public int EscuelaId { get; set; }
+
+        internal static Estudiante ToModel(Curso cur)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
