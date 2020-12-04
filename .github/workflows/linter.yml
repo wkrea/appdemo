@@ -20,7 +20,6 @@ on:
   #     - main
 
   pull_request:
-    # branches: [ main, CICD, wtests ]
       branches: 
         - main
         - main_tests
