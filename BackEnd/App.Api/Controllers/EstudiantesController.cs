@@ -64,20 +64,38 @@ namespace App.Api.Controllers
         public async Task<ActionResult<EstudianteDTO>> Create([FromBody] EstudianteDTO EstudianteDto)
         {
             // verificar que el campo nombre no venga nulo -> BadRequest
-
+            //if (EstudianteDto.Nombre == null) {
+              
+              if (string.IsNullOrEmpty(EstudianteDto.Nombre)){ 
+              return BadRequest(); 
+            }
+            
             //verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
+            var cur =  await _dbContext.Cursos.FirstOrDefaultAsync(cur => cur.Id == EstudianteDto.CursoId);
+            if(cur == null){
+                return NotFound();
+            }
 
             // verificar que el estudiante no exista en la base
             // si existe, retortar conflicto
+            var estu = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id == EstudianteDto.Id);
+              if (estu != null){
+            return Conflict();
+            }
 
             // convertir los datos de DTO a Model
+            //Estudiante est = EstudianteExtensions.ToModel(EstudianteDto,cur);
+            Estudiante est = EstudianteDto.ToModel (cur);
+            
             // agregar el estudiante a la base de datos
+            _dbContext.Estudiantes.Add(est);
+            
             // guardar los cambios
             await _dbContext.SaveChangesAsync();
 
             // retornar el estudiante DTO con los datos actualizados (updatedEstudianteDto)
-            var updatedEstudianteDto = new EstudianteDTO();
+            var updatedEstudianteDto = est.ToDTO();
             return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
         }
 
@@ -91,14 +109,20 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstudianteDTO>> Delete(int id)
         {
+            
             // verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
-
+        
+            var Estudiante = await _dbContext.Estudiantes.FirstOrDefaultAsync(e=>e.Id==id);
+            if (Estudiante == null)
+            return NotFound();   
+                  
             // eliminar el estudiante de la base de datos
+            _dbContext.Estudiantes.Remove(Estudiante);
             await _dbContext.SaveChangesAsync();
 
             // retornar el estudiante DTO que se eliminó on un Ok()
-            return Ok();
+            return Ok(Estudiante.ToDTO());
         }
 
         /// <summary>
@@ -113,18 +137,41 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
+            var est = await _dbContext.Estudiantes.FirstOrDefaultAsync(e => e.Id == EstudianteDto.Id);
+            if (EstudianteDto.Id != id ){
+                return BadRequest();
+            }
             // verificar que el id del estudiante corresponda al de un estudiante de la base -> BadRequest
+             
             // verificar que el campo nombre no venga nulo -> BadRequest
-
+            if (string.IsNullOrEmpty(EstudianteDto.Nombre)) {
+                return BadRequest(); 
+            }
             // verificar que el estudiante que quiere modificarse, exista
             // si no existe, retornar NotFound
-
+            if (est == null) {
+                return NotFound();
+            }       
             // verificar que el curso id, que viene en el DTO para modificar matricula (actualizar)
             // exista en la base, de lo contrario manterner el mismo curso en el que esté matriculado
             // Si no se encuentra que el estudiante este en un curso, retornar NotFound
-
+            
+            if(await _dbContext.Cursos.FirstOrDefaultAsync(cur => cur.Id == EstudianteDto.CursoId) == null){
+            Curso cur = await _dbContext.Cursos.FirstOrDefaultAsync( cur => cur.Id == est.Id);
+            if(cur == null) {
+                return NotFound();
+            } else {
+                var estdto = est.ToDTO();
+                est.Update (estdto, cur);
+                return NotFound();
+            } 
+            }
+            
             // Actualizar el estudiante, recuerden que existe un método Update en Extensions
 
+           est.Update (EstudianteDto,await _dbContext.Cursos.FirstOrDefaultAsync(cur => cur.Id == EstudianteDto.CursoId));
+
+            
             // Guardar los cambios en la base
             await _dbContext.SaveChangesAsync();
             return NoContent();

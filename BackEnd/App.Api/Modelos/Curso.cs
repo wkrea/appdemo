@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Runtime.Intrinsics.X86;
+using System.Collections;
+using System.Collections.Generic;
 
-namespace App.Api.Modelos
-{
+namespace App.Api.Modelos{
     public class Curso
     {
         public int Id { get; set; }
