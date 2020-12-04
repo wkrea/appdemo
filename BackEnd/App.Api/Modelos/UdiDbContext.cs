@@ -4,6 +4,7 @@ namespace App.Api.Modelos
 {
     public class UdiDbContext : DbContext
     {
+
         public UdiDbContext(DbContextOptions<UdiDbContext> options) : base(options)
         {
             Database.EnsureDeleted();

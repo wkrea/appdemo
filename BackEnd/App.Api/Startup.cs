@@ -31,6 +31,7 @@ namespace App.Api
                 options.JsonSerializerOptions.IgnoreNullValues = true;
                 options.JsonSerializerOptions.WriteIndented = true;
             });
+
             services.AddHealthChecks();
 
             services.AddDbContext<UdiDbContext>(builder =>

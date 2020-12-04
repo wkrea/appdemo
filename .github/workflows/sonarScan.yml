@@ -25,12 +25,19 @@
         - main_tests
         - CICD
         - wtests
+<<<<<<< HEAD
+        - A_warevalo
+=======
         - B_warevalo
+>>>>>>> main
         - 8A_warevalo
         - B_acelas
         - B_cmalaver
         - B_dmartinez
+<<<<<<< HEAD
+=======
         - B_dmoreno
+>>>>>>> main
         - B_gcastro
         - B_jrangel
         - B_jrobles
@@ -40,8 +47,12 @@
         - A_dsuarez
         - A_jcaballero
         - 8A_jcaballero
+<<<<<<< HEAD
+
+=======
         - A_requena
   
+>>>>>>> main
   ###############
   # Set the Job #
   ###############
