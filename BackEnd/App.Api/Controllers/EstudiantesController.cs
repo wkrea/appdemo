@@ -88,11 +88,13 @@ namespace App.Api.Controllers
             };
             // agregar el estudiante a la base de datos
             _dbContext.Estudiantes.Add(new_Estudiante);
+
             // guardar los cambios
             await _dbContext.SaveChangesAsync();
 
             // retornar el estudiante DTO con los datos actualizados (updatedEstudianteDto)
             var updatedEstudianteDto = new EstudianteDTO();
+
             //return CreatedAtAction(nameof(Get), new {id = EstudianteDto.Id}, updatedEstudianteDto);
             var est = await _dbContext.Estudiantes.FirstOrDefaultAsync(es=>es.Id==EstudianteDto.Id);
 
@@ -176,6 +178,7 @@ namespace App.Api.Controllers
             }
             // Actualizar el estudiante, recuerden que existe un método Update en Extensions
             Estudiante.Update(EstudianteDto, await _dbContext.Cursos.FirstOrDefaultAsync(cu => cu.Id == EstudianteDto.CursoId));
+            
             // Guardar los cambios en la base
             await _dbContext.SaveChangesAsync();
             return NoContent();
