@@ -85,10 +85,13 @@ namespace App.Api.Controllers
                 return NotFound();
 
             // convertir los datos de DTO a Model
-           // var Estudiante = new Estudiante
-          //  {              Id =             }
-            // agregar el estudiante a la base de datos
-
+        //    var CEstudiante = new Estudiante{
+        //         Id = EstudianteDto.Id,
+        //         Nombre = EstudianteDto.Nombre,
+        //      CursoId = EstudianteDto.CursoId,
+        //     };
+        //     agregar el estudiante a la base de datos
+        //     _dbContext.Estudiantes.Add(CEstudiante);
             // guardar los cambios
             await _dbContext.SaveChangesAsync();
 
@@ -156,7 +159,11 @@ namespace App.Api.Controllers
                 return NotFound();
 
             // Actualizar el estudiante, recuerden que existe un método Update en Extensions
+                ActEstudiante.Id = EstudianteDto.Id;
+                ActEstudiante.Nombre = EstudianteDto.Nombre;
+                ActEstudiante.CursoId = EstudianteDto.CursoId;
 
+        
             // Guardar los cambios en la base
             await _dbContext.SaveChangesAsync();
             return NoContent();
