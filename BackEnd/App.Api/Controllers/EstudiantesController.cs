@@ -94,9 +94,7 @@ namespace App.Api.Controllers
             // verificar que el curso que quiere matricularse el estudiante, exista
             // si no existe, retornar NotFound
 
-            // eliminar el estudiante de la base de datos
             await _dbContext.SaveChangesAsync();
-
             // retornar el estudiante DTO que se eliminó on un Ok()
             return Ok();
         }
@@ -113,7 +111,6 @@ namespace App.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] EstudianteDTO EstudianteDto)
         {
-            // verificar que el id del estudiante corresponda al de un estudiante de la base -> BadRequest
             // verificar que el campo nombre no venga nulo -> BadRequest
 
             // verificar que el estudiante que quiere modificarse, exista
@@ -127,7 +124,3 @@ namespace App.Api.Controllers
 
             // Guardar los cambios en la base
             await _dbContext.SaveChangesAsync();
-            return NoContent();
-        }
-    }
-}
