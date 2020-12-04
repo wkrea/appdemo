@@ -35,7 +35,7 @@ namespace App.Api
             services.AddHealthChecks();
 
             services.AddDbContext<UdiDbContext>(builder =>
-                builder.UseInMemoryDatabase("UdiDb-Memory")//.UseLazyLoadingProxies()
+                builder.UseInMemoryDatabase("UdiDb-Memory").UseLazyLoadingProxies()
                 , ServiceLifetime.Singleton);
 
         }
