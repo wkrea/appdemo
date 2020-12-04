@@ -1,8 +1,0 @@
-@startuml
-class Estudiante {
-    + Id : int <<get>> <<set>>
-    + Nombre : string <<get>> <<set>>
-    + CursoId : int <<get>> <<set>>
-    + Curso : Curso <<get>> <<set>>
-}
-@enduml
