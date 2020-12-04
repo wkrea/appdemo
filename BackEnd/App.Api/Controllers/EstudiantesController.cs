@@ -124,3 +124,7 @@ namespace App.Api.Controllers
 
             // Guardar los cambios en la base
             await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+    }
+}
