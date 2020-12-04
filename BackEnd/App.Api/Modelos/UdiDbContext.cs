@@ -25,7 +25,7 @@ namespace App.Api.Modelos
                 esc.Property(e => e.Nombre).IsRequired();
                 esc.Property(e => e.Ciudad).IsRequired();
                 esc.Property(e => e.Departamento).IsRequired();
-                esc.HasMany(e => e.Profesores).WithOne(p => p.Escuela);
+                esc.HasMany(e => e.profesores).WithOne(p => p.Escuela);
             });
 
             modelBuilder.Entity<Profesor>(p =>
@@ -33,7 +33,7 @@ namespace App.Api.Modelos
                 p.HasKey(p => p.Id);
                 p.Property(p => p.Id).ValueGeneratedNever();
                 p.Property(p => p.Nombre).IsRequired();
-                p.HasOne(p => p.Escuela).WithMany(est => est.Profesores);
+                p.HasOne(p => p.Escuela).WithMany(est => est.profesores);
                 p.HasMany(p => p.Cursos).WithOne(c => c.Profesor);
             });
 
@@ -71,13 +71,13 @@ namespace App.Api.Modelos
                 new Profesor(){ Id = 5, Nombre = "Elkin Plata", EscuelaId=3}
             ); 
 
-            modelBuilder.Entity<Curso>().HasData( 
-                new Curso(){ Id = 1, Nombre = "Servicios Web", ProfesorId=1 },
-                new Curso(){ Id = 2, Nombre = "Estadística y probabilidades" , ProfesorId=3 },
-                new Curso(){ Id = 3, Nombre = "Sistemas Operativos", ProfesorId=1 },
-                new Curso(){ Id = 4, Nombre = "Redes II" , ProfesorId=2},
-                new Curso(){ Id = 5, Nombre = "Análisis numérico" , ProfesorId=5 },
-                new Curso(){ Id = 6, Nombre = "Metodología de la investigación" , ProfesorId=4 }
+            modelBuilder.Entity<curso>().HasData( 
+                new curso(){ Id = 1, Nombre = "Servicios Web", ProfesorId=1 },
+                new curso(){ Id = 2, Nombre = "Estadística y probabilidades" , ProfesorId=3 },
+                new curso(){ Id = 3, Nombre = "Sistemas Operativos", ProfesorId=1 },
+                new curso(){ Id = 4, Nombre = "Redes II" , ProfesorId=2},
+                new curso(){ Id = 5, Nombre = "Análisis numérico" , ProfesorId=5 },
+                new curso(){ Id = 6, Nombre = "Metodología de la investigación" , ProfesorId=4 }
             );
             
             modelBuilder.Entity<Estudiante>().HasData(

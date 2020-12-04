@@ -5,17 +5,19 @@ namespace App.Api.Modelos
 {
     public static class EstudianteExtensions
     {
-        
-        public static void Update(this Estudiante EstudianteToUpdate, EstudianteDTO EstudianteDto, curso curso)
+        /// <summary>
+        /// Permite transferir la información desde FrontEnd hacia la Entidad en la base de datos
+        ///    In:  Instancia DTO, recibida desde el FrontEnd
+        ///    Out: Instancia de Modelo (representa estructura de Entidad en la base de datos) 
+        /// </summary>
+        /// <param name="objEstudianteDto"></param>
+        /// <param name="objCurso"></param>
+        /// <returns></returns>
+        public static Estudiante ToModel(this EstudianteDTO objEstudianteDto, curso objCurso)
         {
-            if (EstudianteDto.Id != EstudianteToUpdate.Id) throw new NotSupportedException();
-            EstudianteToUpdate.Nombre = EstudianteDto.Nombre;
-            EstudianteToUpdate.Curso = curso;
-        }
-
-        public static Estudiante ToModel(this EstudianteDTO EstudianteDto, curso curso)
-        {
-            if (curso.Id != EstudianteDto.CursoId) throw new NotSupportedException();
+            // Información desde FrontEnd (Postman -> JSON), hacia la base de datos (Modelos/Estudiante.cs)
+            // crear un estudiante con los datos (Id, Nombre y Curso) que vienen en el objEstDTO
+            if (objCurso.Id != objEstudianteDto.CursoId) throw new NotSupportedException();
             return new Estudiante
             {
                 Id = objEstudianteDto.Id,
@@ -29,7 +31,7 @@ namespace App.Api.Modelos
         /// <param name="objEstudianteToUpdate">Instancia con datos provenientes desde FrontEnd(Postman -> JSON)</param>
         /// <param name="objEstudianteDto">Instancia proveniente de la Base de datos</param>
         /// <param name="objCurso">Instancia con datos provenientes desde FrontEnd</param>
-        public static void Update(this Estudiante objEstudianteToUpdate, EstudianteDTO objEstudianteDto, Curso objCurso)
+        public static void Update(this Estudiante objEstudianteToUpdate, EstudianteDTO objEstudianteDto, curso objCurso)
         {
             // verificar que la entidad existe en la base
             // actualizar los campos Nombre y Curso, sobre la instancia objEstUpdate
@@ -59,3 +61,4 @@ namespace App.Api.Modelos
         }
     }
 }
+
