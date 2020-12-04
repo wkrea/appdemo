@@ -35,8 +35,6 @@
         - B_jrangel
         - B_jrobles
         - B_jvalencia
-        - B_jvillamizar
-        - B_kvega
         - B_macosta
         - A_acelis
         - A_dsuarez
@@ -130,4 +128,3 @@
         #       -Dsonar.verbose=false
         #       -Dsonar.sources=./BackEnd/App.Api/
         #       -Dsonar.python.coverage.reportPaths=coverage.xml
-

@@ -1,9 +1,0 @@
-@startuml
-class Escuela {
-    + Id : int <<get>> <<set>>
-    + Nombre : string <<get>> <<set>>
-    + Ciudad : string <<get>> <<set>>
-    + Departamento : string <<get>> <<set>>
-    + Profesores : ICollection<Profesor> <<get>> <<set>>
-}
-@enduml
